@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio - MUSSAB YAQOOB | Software Developer</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Header -->
+    <header id="header" class="scrolled">
+        <div class="container header-container">
+            <a href="index.html" class="logo">MUSSAB<span>YAQOOB</span></a>
+            <div class="menu-toggle">
+                <i class="fas fa-bars"></i>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="services.html">Services</a></li>
+                <li><a href="portfolio.html" class="active">Portfolio</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <!-- Portfolio Section -->
+    <section class="section page-section" id="portfolio">
+        <div class="container">
+            <div class="section-title">
+                <h2>My Portfolio</h2>
+                <p>Explore some of my recent projects and see what I can do. Each project represents a unique challenge solved with creativity and technical expertise.</p>
+            </div>
+            <div class="portfolio-filter">
+                <button class="filter-btn active" data-filter="all">All Projects</button>
+                <button class="filter-btn" data-filter="web">Web Development</button>
+                <button class="filter-btn" data-filter="mobile">Mobile Apps</button>
+                <button class="filter-btn" data-filter="design">UI/UX Design</button>
+                <button class="filter-btn" data-filter="backend">Backend</button>
+            </div>
+            <div class="portfolio-grid">
+                <div class="portfolio-item" data-category="web">
+                    <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="E-commerce Platform" class="portfolio-img">
+                    <div class="portfolio-overlay">
+                        <h3>E-commerce Platform</h3>
+                        <p>React, Node.js, MongoDB</p>
+                        <div class="portfolio-details">
+                            <span>A full-featured online store with payment integration, inventory management, and admin dashboard.</span>
+                        </div>
+                        <a href="#" class="btn">View Project</a>
+                    </div>
+                </div>
+                <div class="portfolio-item" data-category="mobile">
+                    <img src="https://images.unsplash.com/photo-1555774698-0b77e0d5fac6?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Fitness Tracker App" class="portfolio-img">
+                    <div class="portfolio-overlay">
+                        <h3>Fitness Tracker App</h3>
+                        <p>React Native, Firebase</p>
+                        <div class="portfolio-details">
+                            <span>Cross-platform fitness app with workout tracking, progress monitoring, and social features.</span>
+                        </div>
+                        <a href="#" class="btn">View Project</a>
+                    </div>
+                </div>
+                <div class="portfolio-item" data-category="web">
+                    <img src="https://images.unsplash.com/photo-1467232004584-a241de8bcf5d?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Business Dashboard" class="portfolio-img">
+                    <div class="portfolio-overlay">
+                        <h3>Business Analytics Dashboard</h3>
+                        <p>Vue.js, D3.js, Express</p>
+                        <div class="portfolio-details">
+                            <span>Real-time data visualization dashboard for business intelligence and reporting.</span>
+                        </div>
+                        <a href="#" class="btn">View Project</a>
+                    </div>
+                </div>
+                <div class="portfolio-item" data-category="design">
+                    <img src="https://images.unsplash.com/photo-1547658719-da2b51169166?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Design System" class="portfolio-img">
+                    <div class="portfolio-overlay">
+                        <h3>Corporate Design System</h3>
+                        <p>Figma, Storybook, React</p>
+                        <div class="portfolio-details">
+                            <span>Comprehensive design system with reusable components and design guidelines.</span>
+                        </div>
+                        <a href="#" class="btn">View Project</a>
+                    </div>
+                </div>
+                <div class="portfolio-item" data-category="mobile">
+                    <img src="https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Travel App" class="portfolio-img">
+                    <div class="portfolio-overlay">
+                        <h3>Travel Planning App</h3>
+                        <p>Flutter, GraphQL</p>
+                        <div class="portfolio-details">
+                            <span>AI-powered travel planning app with itinerary creation and booking integration.</span>
+                        </div>
+                        <a href="#" class="btn">View Project</a>
+                    </div>
+                </div>
+                <div class="portfolio-item" data-category="web">
+                    <img src="https://images.unsplash.com/photo-1559028012-481c04fa702d?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="CMS Platform" class="portfolio-img">
+                    <div class="portfolio-overlay">
+                        <h3>Headless CMS Platform</h3>
+                        <p>Next.js, Strapi, AWS</p>
+                        <div class="portfolio-details">
+                            <span>Modern content management system with API-first architecture and multi-channel publishing.</span>
+                        </div>
+                        <a href="#" class="btn">View Project</a>
+                    </div>
+                </div>
+                <div class="portfolio-item" data-category="backend">
+                    <img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="API Gateway" class="portfolio-img">
+                    <div class="portfolio-overlay">
+                        <h3>Microservices API Gateway</h3>
+                        <p>Node.js, Docker, Kubernetes</p>
+                        <div class="portfolio-details">
+                            <span>Scalable API gateway handling authentication, rate limiting, and service orchestration.</span>
+                        </div>
+                        <a href="#" class="btn">View Project</a>
+                    </div>
+                </div>
+                <div class="portfolio-item" data-category="web">
+                    <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="SaaS Platform" class="portfolio-img">
+                    <div class="portfolio-overlay">
+                        <h3>SaaS Analytics Platform</h3>
+                        <p>React, Python, PostgreSQL</p>
+                        <div class="portfolio-details">
+                            <span>Multi-tenant SaaS platform for data analytics with custom dashboards and reporting.</span>
+                        </div>
+                        <a href="#" class="btn">View Project</a>
+                    </div>
+                </div>
+                <div class="portfolio-item" data-category="mobile">
+                    <img src="https://images.unsplash.com/photo-1556075798-4825dfaaf498?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Social Media App" class="portfolio-img">
+                    <div class="portfolio-overlay">
+                        <h3>Social Media App</h3>
+                        <p>React Native, Socket.io</p>
+                        <div class="portfolio-details">
+                            <span>Real-time social media application with messaging, stories, and live streaming features.</span>
+                        </div>
+                        <a href="#" class="btn">View Project</a>
+                    </div>
+                </div>
+            </div>
+
+           
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-logo">MUSSAB<span>YAQOOB</span></div>
+           
+            <div class="social-links">
+                <a href="https://github.com/mussabyaqoob9"><i class="fab fa-github"></i></a>
+                <a href="https://www.linkedin.com/in/mussab-yaqoob-580186377?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app"><i class="fab fa-linkedin-in"></i></a>
+                <a href="https://wa.me/message/HSRAATHOY5F4M1"><i class="fab fa-whatsapp"></i></a>
+                <a href="https://www.instagram.com/mussabyaqoob9?igsh=MWZ2M29oMTZjNDJvOQ=="><i class="fab fa-instagram"></i></a>
+                <a href="https://www.facebook.com/share/16h4mNiaEC/"><i class="fab fa-facebook-f"></i></a>
+
+            </div>
+            <p class="copyright">&copy; 2023. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

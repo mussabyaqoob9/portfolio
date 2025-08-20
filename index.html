@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MUSSAB YAQOOB | Software Developer</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Temporary inline styles for demonstration */
+        .hero-container {
+            align-items: center;
+            gap: 50px;
+        }
+        .hero-content {
+            flex: 1;
+        }
+        .hero-image {
+            flex: 1;
+            text-align: center;
+        }
+        .hero-image img {
+            max-width: 100%;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        @media (max-width: 768px) {
+            .hero-container {
+                flex-direction: column;
+            }
+            .hero-image {
+                order: -1;
+                margin-bottom: 30px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header id="header">
+        <div class="container header-container">
+            <a href="index.html" class="logo">MUSSAB<span>YAQOOB</span></a>
+            <div class="menu-toggle">
+                <i class="fas fa-bars"></i>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html" class="active">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="services.html">Services</a></li>
+                <li><a href="portfolio.html">Portfolio</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="container">
+            <div class="hero-container">
+                <div class="hero-content">
+                    <h1>Hi, I'm <span>MUSSAB YAQOOB</span><br>Software Developer</h1>
+                    <p>I build exceptional digital experiences that are fast, accessible, and visually appealing. With a focus on clean code and user-centered design, I create solutions that make an impact.</p>
+                    <div class="hero-btns">
+                        <a href="portfolio.html" class="btn">View My Work</a>
+                        <a href="contact.html" class="btn btn-outline">Contact Me</a>
+                    </div>
+                </div>
+                <div class="hero-image">
+                    <!-- Replace with your actual image path -->
+                    <img src="image.png" alt="">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-logo">MUSSAB<span>YAQOOB</span></div>
+
+            <div class="social-links">
+                <a href="https://github.com/mussabyaqoob9"><i class="fab fa-github"></i></a>
+                <a href="https://www.linkedin.com/in/mussab-yaqoob-580186377?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app"><i class="fab fa-linkedin-in"></i></a>
+                <a href="https://wa.me/message/HSRAATHOY5F4M1"><i class="fab fa-whatsapp"></i></a>
+                <a href="https://www.instagram.com/mussabyaqoob9?igsh=MWZ2M29oMTZjNDJvOQ=="><i class="fab fa-instagram"></i></a>
+                <a href="https://www.facebook.com/share/16h4mNiaEC/"><i class="fab fa-facebook-f"></i></a>
+
+            </div>
+            <p class="copyright">&copy; 2023. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
