@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Business Analytics Dashboard - Dark/Light Toggle</title>
+<script src="https://unpkg.com/vue@3"></script>
+<script src="https://d3js.org/d3.v7.min.js"></script>
+<style>
+:root {
+  --bg-color: #fefefe;
+  --text-color: #111;
+  --header-bg: linear-gradient(135deg,#4e54c8,#8f94fb);
+  --card-bg: #fff;
+  --btn-bg: #4e54c8;
+  --btn-hover: #6c63ff;
+  --accent: #8f94fb;
+  --toggle-bg: #f1f1f1;
+  --toggle-border: #ddd;
+}
+
+body.dark-mode {
+  --bg-color: #121212;
+  --text-color: #f1f1f1;
+  --header-bg: linear-gradient(135deg,#1a237e,#283593);
+  --card-bg: #1e1e1e;
+  --btn-bg: #1a237e;
+  --btn-hover: #3949ab;
+  --accent: #7e57c2;
+  --toggle-bg: #333;
+  --toggle-border: #444;
+}
+
+body{
+  margin:0;padding:0;font-family:"Poppins",sans-serif;background:var(--bg-color);color:var(--text-color);scroll-behavior:smooth;
+  transition: background 0.4s, color 0.4s;
+}
+header{
+  background:var(--header-bg);color:#fff;text-align:center;padding:60px 20px 40px;animation:fadeInDown 1s ease forwards;position:relative;
+}
+header h1{font-size:2.8rem;margin-bottom:10px;}
+header p{font-size:1.2rem;}
+
+/* ========== IMPROVED DARK MODE TOGGLE ========== */
+.dark-toggle-container {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.dark-toggle-label {
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.toggle-switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 30px;
+}
+
+.toggle-switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: var(--toggle-bg);
+  border: 1px solid var(--toggle-border);
+  transition: .4s;
+  border-radius: 34px;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 22px;
+  width: 22px;
+  left: 4px;
+  bottom: 3px;
+  background-color: white;
+  transition: .4s;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+input:checked + .slider {
+  background-color: var(--accent);
+}
+
+input:checked + .slider:before {
+  transform: translateX(28px);
+  content: "🌙";
+  font-size: 12px;
+  color: #333;
+}
+
+input:not(:checked) + .slider:before {
+  content: "☀️";
+  font-size: 12px;
+  color: #333;
+}
+
+nav{
+  position:sticky;top:0;background:var(--bg-color);display:flex;justify-content:center;gap:30px;padding:15px 0;box-shadow:0 4px 10px rgba(0,0,0,0.1);z-index:999;
+  transition: background 0.4s;
+}
+nav a{text-decoration:none;color:var(--text-color);font-weight:500;transition:color 0.3s;}
+nav a:hover{color:var(--accent);}
+section{max-width:1100px;margin:50px auto;padding:0 20px;}
+.section-title{text-align:center;margin-bottom:40px;animation:fadeIn 1.2s ease forwards;}
+.features-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:25px;}
+.feature-card{
+  background: var(--card-bg);padding:25px;border-radius:15px;box-shadow:0 6px 18px rgba(0,0,0,0.2);text-align:center;transition:transform 0.3s ease,box-shadow 0.3s ease,opacity 0.6s;opacity:0;transform:translateY(40px);
+}
+.feature-card.show{opacity:1;transform:translateY(0);}
+.feature-card img{width:80px;margin-bottom:15px;animation:bounce 3s infinite;}
+.feature-card h3{margin-bottom:10px;font-size:1.2rem;color:var(--btn-bg);}
+.feature-card p{font-size:0.95rem;color:#555;}
+.project-mockup{display:flex;justify-content:center;flex-wrap:wrap;gap:25px;text-align:center;margin:50px auto;}
+.mockup-frame{
+  width:300px;height:500px;border:14px solid #000;border-radius:30px;position:relative;overflow:hidden;background:var(--card-bg);box-shadow:0 6px 25px rgba(0,0,0,0.3);transition:transform 0.4s, opacity 0.6s;opacity:0;transform:translateY(60px);
+}
+.mockup-frame.show{opacity:1;transform:translateY(0);}
+.mockup-notch{width:100px;height:20px;background:var(--bg-color);border-radius:0 0 10px 10px;position:absolute;top:-10px;left:50%;transform:translateX(-50%);}
+.mockup-content{width:100%;height:100%;padding:10px;color:var(--text-color);}
+.kpi-card{background:var(--btn-bg);margin:5px;padding:10px;border-radius:10px;text-align:center;color:#fff;transition:transform 0.3s;}
+.kpi-card:hover{transform:scale(1.05);}
+.progress-bar{background:#333;height:10px;border-radius:5px;margin-top:5px;overflow:hidden;}
+.progress-bar-fill{height:100%;background:var(--accent);width:0%;transition:width 1.2s;}
+.chart-tabs{display:flex;justify-content:center;gap:10px;margin-bottom:5px;}
+.chart-tab{padding:5px 12px;background:var(--btn-bg);border-radius:5px;cursor:pointer;color:#fff;}
+.chart-tab.active{background:var(--accent);}
+svg{width:100%;height:60%;}
+.btn{display:inline-block;margin-top:20px;background:var(--btn-bg);color:#fff;padding:12px 25px;border-radius:10px;text-decoration:none;font-weight:bold;transition: background 0.3s ease;}
+.btn:hover{background:var(--btn-hover);}
+@keyframes fadeInDown{from{opacity:0;transform:translateY(-40px);}to{opacity:1;transform:translateY(0);} }
+@keyframes fadeIn{from{opacity:0;}to{opacity:1;}}
+@keyframes bounce{0%,20%,50%,80%,100%{transform:translateY(0);}40%{transform:translateY(-10px);}60%{transform:translateY(-5px);}}
+@media (max-width:768px){
+  .mockup-frame{width:200px;height:380px;}
+  nav{gap:15px;}
+  .dark-toggle-container { top: 15px; right: 15px; }
+  .dark-toggle-label { display: none; }
+  .toggle-switch { width: 50px; height: 26px; }
+  input:checked + .slider:before { transform: translateX(22px); }
+}
+footer{background:var(--card-bg);text-align:center;padding:30px;color:var(--text-color);margin-top:50px;transition: background 0.4s;}
+</style>
+</head>
+<body>
+
+<header id="about">
+<h1>Business Analytics Dashboard</h1>
+<p>Vue.js • D3.js • Express.js</p>
+<div class="dark-toggle-container">
+  <span class="dark-toggle-label">Theme</span>
+  <label class="toggle-switch" aria-label="Toggle dark mode">
+    <input type="checkbox" id="darkModeToggle">
+    <span class="slider"></span>
+  </label>
+</div>
+</header>
+
+<nav>
+<a href="#about">About</a>
+<a href="#features">Features</a>
+<a href="#dashboard">Dashboard</a>
+</nav>
+
+<section id="about" class="section-title scroll-reveal">
+<h2>About the Project</h2>
+<p style="max-width:700px;margin:auto;">Fully interactive Business Analytics Dashboard with Vue.js frontend, dynamic D3.js charts, and Express.js backend. Monitor KPIs, trends, and business insights in real-time.</p>
+</section>
+
+<section id="features" class="features-grid">
+<div class="feature-card scroll-reveal"><img src="real time data.png" alt="Real-time Data"><h3>Real-time Data</h3><p>Live dashboards for decision-making.</p></div>
+<div class="feature-card scroll-reveal"><img src="https://img.icons8.com/color/96/bar-chart.png" alt="Charts"><h3>Dynamic Charts</h3><p>D3.js powered interactive charts.</p></div>
+<div class="feature-card scroll-reveal"><img src="https://img.icons8.com/color/96/server.png" alt="Backend"><h3>Express Backend</h3><p>REST API for scalable data.</p></div>
+<div class="feature-card scroll-reveal"><img src="https://img.icons8.com/color/96/settings.png" alt="Customizable"><h3>Customizable UI</h3><p>Widgets, themes, and layouts.</p></div>
+</section>
+
+<section id="dashboard" class="project-mockup">
+<div class="mockup-frame scroll-reveal">
+<div class="mockup-notch"></div>
+<div id="vue-dashboard" class="mockup-content">
+  <div id="app">
+    <div style="display:flex;justify-content:space-around;margin-bottom:10px;">
+      <div class="kpi-card" v-for="kpi in kpis">
+        <div>{{ kpi.name }}</div>
+        <div style="font-size:1.5rem;font-weight:bold;">{{ kpi.value }}</div>
+        <div class="progress-bar"><div class="progress-bar-fill" :style="{width:kpi.value+'%'}"></div></div>
+      </div>
+    </div>
+    <div class="chart-tabs">
+      <div v-for="tab in tabs" :key="tab" class="chart-tab" :class="{active:currentTab===tab}" @click="currentTab=tab">{{ tab }}</div>
+    </div>
+    <svg ref="chart"></svg>
+  </div>
+</div>
+</div>
+</section>
+
+<footer>
+<p>© 2025 Your Name • Portfolio Project</p>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/vue@3/dist/vue.global.prod.js"></script>
+<script>
+const { createApp, onMounted, ref, watchEffect } = Vue;
+
+// Dark Mode Toggle with localStorage
+const toggle = document.getElementById("darkModeToggle");
+    
+// Check for saved theme preference
+const savedTheme = localStorage.getItem('theme');
+if (savedTheme === 'dark') {
+  document.body.classList.add('dark-mode');
+  toggle.checked = true;
+} else if (savedTheme === 'light') {
+  document.body.classList.remove('dark-mode');
+  toggle.checked = false;
+} else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+  // Check system preference if no saved preference
+  document.body.classList.add('dark-mode');
+  toggle.checked = true;
+}
+
+// Toggle theme
+toggle.addEventListener("change", () => {
+  if (toggle.checked) {
+    document.body.classList.add("dark-mode");
+    localStorage.setItem('theme', 'dark');
+  } else {
+    document.body.classList.remove("dark-mode");
+    localStorage.setItem('theme', 'light');
+  }
+});
+
+// Listen for system theme changes
+window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', event => {
+  if (!localStorage.getItem('theme')) { // Only if user hasn't set a preference
+    if (event.matches) {
+      document.body.classList.add("dark-mode");
+      toggle.checked = true;
+    } else {
+      document.body.classList.remove("dark-mode");
+      toggle.checked = false;
+    }
+  }
+});
+
+createApp({
+  setup(){
+    const kpis = ref([
+      {name:'Users', value:75},
+      {name:'Revenue', value:60},
+      {name:'Sessions', value:90}
+    ]);
+    const tabs = ref(['Bar Chart','Line Chart','Pie Chart']);
+    const currentTab = ref('Bar Chart');
+    const chart = ref(null);
+
+    const drawChart = () => {
+      const svg = d3.select(chart.value);
+      svg.selectAll("*").remove();
+      const width = svg.node().clientWidth;
+      const height = svg.node().clientHeight;
+      if(currentTab.value==='Bar Chart'){
+        const data=[20,35,40,60,25];
+        svg.selectAll("rect").data(data).enter().append("rect")
+          .attr("x",(d,i)=>i*50+20).attr("y",height).attr("width",30).attr("height",0)
+          .attr("fill","#283593").transition().duration(1000).attr("y",d=>height-d*5).attr("height",d=>d*5);
+      }
+      if(currentTab.value==='Line Chart'){
+        const data=[30,50,40,70,60];
+        const x=d3.scaleLinear().domain([0,data.length-1]).range([20,width-20]);
+        const y=d3.scaleLinear().domain([0,100]).range([height-20,20]);
+        const line=d3.line().x((d,i)=>x(i)).y(d=>y(d)).curve(d3.curveMonotoneX);
+        svg.append("path").datum(data).attr("fill","none").attr("stroke","#7e57c2").attr("stroke-width",3).attr("d",line);
+      }
+      if(currentTab.value==='Pie Chart'){
+        const data=[10,20,30,40];
+        const g=svg.append("g").attr("transform",`translate(${width/2},${height/2})`);
+        const pie=d3.pie()(data);
+        const arc=d3.arc().innerRadius(0).outerRadius(80);
+        g.selectAll("path").data(pie).enter().append("path")
+          .attr("d",arc).attr("fill",(d,i)=>["#283593","#5c6bc0","#7986cb","#7e57c2"][i])
+          .transition().duration(1000).attrTween("d",function(d){ const i=d3.interpolate({startAngle:0,endAngle:0},d); return t=>arc(i(t)); });
+      }
+    };
+
+    onMounted(()=>{
+      drawChart();
+      watchEffect(()=>drawChart());
+    });
+
+    return {kpis,tabs,currentTab,chart,drawChart};
+  }
+}).mount("#app");
+
+// Scroll reveal
+const reveals=document.querySelectorAll(".scroll-reveal,.feature-card,.mockup-frame");
+const observer=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add("show");});},{threshold:0.2});
+reveals.forEach(el=>observer.observe(el));
+</script>
+</body>
+</html>

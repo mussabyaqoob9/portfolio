@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Travel Planning App - Portfolio</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap');
+    *{margin:0;padding:0;box-sizing:border-box;scroll-behavior:smooth}
+    body{
+      font-family:'Poppins',sans-serif;
+      background:linear-gradient(135deg,#0f2027,#203a43,#2c5364);
+      color:#fff;
+      overflow-x:hidden;
+    }
+
+    /* Navbar */
+    nav{
+      position:fixed;top:0;left:0;width:100%;
+      background:rgba(0,0,0,.5);
+      backdrop-filter:blur(10px);
+      display:flex;justify-content:center;gap:30px;
+      padding:15px 0;z-index:1000;
+    }
+    nav a{
+      color:#fff;text-decoration:none;font-weight:500;font-size:1rem;
+      padding:8px 15px;border-radius:30px;transition:.3s;
+    }
+    nav a:hover{
+      background:linear-gradient(45deg,#00d4ff,#0072ff);
+      box-shadow:0 5px 15px rgba(0,210,255,.5);
+    }
+
+    /* Sections */
+    section{
+      min-height:100vh;
+      display:flex;flex-direction:column;align-items:center;justify-content:center;
+      text-align:center;padding:80px 20px;
+      opacity:0;transform:translateY(50px);
+      transition:all 1s ease;
+    }
+    section.show{opacity:1;transform:translateY(0)}
+    h1,h2{margin-bottom:20px}
+    h1{font-size:3rem}
+    h2{font-size:2rem;color:#00d4ff}
+    p{font-size:1.1rem;line-height:1.6;margin:15px 0}
+
+    /* Main Image */
+    .portfolio-img{
+      width:350px;border-radius:20px;margin:20px auto;
+      display:block;box-shadow:0 10px 30px rgba(0,0,0,0.6);
+      transition:transform .5s ease;
+      animation:float 6s ease-in-out infinite;
+    }
+    .portfolio-img:hover{transform:scale(1.05) rotate(2deg)}
+
+    /* Buttons */
+    .btn{
+      display:inline-block;padding:12px 30px;margin-top:20px;
+      background:linear-gradient(45deg,#00d4ff,#0072ff);
+      border-radius:50px;color:white;font-size:1rem;font-weight:bold;text-decoration:none;
+      transition:.3s;box-shadow:0 5px 15px rgba(0,210,255,.5)
+    }
+    .btn:hover{transform:scale(1.1) rotate(-2deg);box-shadow:0 8px 25px rgba(0,210,255,.7)}
+
+    /* Gallery */
+    .gallery{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+      gap:20px;width:90%;max-width:1200px;margin-top:30px;
+    }
+    .gallery img{
+      width:100%;border-radius:15px;
+      box-shadow:0 8px 25px rgba(0,0,0,0.6);
+      transition:transform .4s ease, box-shadow .4s ease;
+    }
+    .gallery img:hover{
+      transform:scale(1.08);
+      box-shadow:0 12px 35px rgba(0,210,255,0.6);
+    }
+
+    /* Background Animation */
+    .animated-bg{position:fixed;top:0;left:0;width:100%;height:100%;z-index:-1;overflow:hidden}
+    .circle{position:absolute;border-radius:50%;background:rgba(0,212,255,0.15);animation:move 20s linear infinite}
+    .circle:nth-child(1){width:200px;height:200px;top:20%;left:10%;animation-duration:25s}
+    .circle:nth-child(2){width:300px;height:300px;top:50%;left:70%;animation-duration:30s}
+    .circle:nth-child(3){width:150px;height:150px;top:80%;left:30%;animation-duration:20s}
+
+    /* Animations */
+    @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-20px)}}
+    @keyframes move{0%{transform:translateY(0) rotate(0)}50%{transform:translateY(-100px) rotate(180deg)}100%{transform:translateY(0) rotate(360deg)}}
+  </style>
+</head>
+<body>
+
+  <!-- Background Circles -->
+  <div class="animated-bg">
+    <div class="circle"></div><div class="circle"></div><div class="circle"></div>
+  </div>
+
+  <!-- Navbar -->
+  <nav>
+    <a href="#home">Home</a>
+    <a href="#flutter">Flutter</a>
+    <a href="#graphql">GraphQL</a>
+    <a href="#gallery">Gallery</a>
+  </nav>
+
+  <!-- Home Section -->
+  <section id="home">
+    <h1>Travel Planning App</h1>
+    <img src="https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" alt="Travel App" class="portfolio-img">
+    <p>An AI-powered travel planning application that creates smart itineraries, finds destinations, and integrates bookings seamlessly.</p>
+    <a href="#flutter" class="btn">Learn About Flutter</a>
+    <a href="#graphql" class="btn">Learn About GraphQL</a>
+  </section>
+
+  <!-- Flutter Section -->
+  <section id="flutter">
+    <h2>About Flutter</h2>
+    <p>Flutter is an open-source UI toolkit by Google for building natively compiled apps for mobile, web, and desktop from a single codebase.</p>
+    <p>It enables fast development, expressive UIs, and near-native performance—perfect for cross-platform apps like this Travel Planning App.</p>
+    <a href="#home" class="btn">⬅ Back to Project</a>
+  </section>
+
+  <!-- GraphQL Section -->
+  <section id="graphql">
+    <h2>About GraphQL</h2>
+    <p>GraphQL is a query language for APIs and a runtime for executing queries. It lets clients request exactly the data they need—nothing more, nothing less.</p>
+    <p>In this Travel App, GraphQL ensures efficient data fetching and smooth integration with booking and itinerary APIs.</p>
+    <a href="#home" class="btn">⬅ Back to Project</a>
+  </section>
+
+  <!-- Gallery Section -->
+  <section id="gallery">
+    <h2>Gallery</h2>
+    <p>Here are some travel inspirations and app preview designs:</p>
+    <div class="gallery">
+      <img src="travel pic1.png" alt="Beach">
+      <img src="travel pic2.png" alt="Mountains">
+      <img src="travel pic3.png" alt="City">
+      <img src="travel pic4.png" alt="Desert">
+      <img src="travel pic5.png" alt="Forest">
+      <img src="travel pic6.png" alt="Bridge">
+    </div>
+    <a href="#home" class="btn">⬅ Back to Project</a>
+  </section>
+
+  <!-- Scroll Reveal Script -->
+  <script>
+    const sections = document.querySelectorAll("section");
+    const revealOnScroll = () => {
+      const triggerBottom = window.innerHeight * 0.8;
+      sections.forEach(section => {
+        const rect = section.getBoundingClientRect();
+        if(rect.top < triggerBottom){
+          section.classList.add("show");
+        }
+      });
+    };
+    window.addEventListener("scroll", revealOnScroll);
+    window.addEventListener("load", revealOnScroll);
+  </script>
+</body>
+</html>

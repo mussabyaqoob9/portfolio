@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Headless CMS Platform | Portfolio</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Base styles and resets */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            color: #e2e8f0;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        /* Header styles */
+        header {
+            text-align: center;
+            padding: 3rem 1rem;
+            position: relative;
+        }
+
+        .logo {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #3b82f6;
+            margin-bottom: 1rem;
+            display: inline-block;
+            position: relative;
+        }
+
+        .logo::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, #3b82f6, transparent);
+            animation: pulseLine 2s infinite;
+        }
+
+        @keyframes pulseLine {
+            0% { opacity: 0; transform: scaleX(0); }
+            50% { opacity: 1; transform: scaleX(1); }
+            100% { opacity: 0; transform: scaleX(0); }
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(90deg, #60a5fa, #3b82f6, #6366f1);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            animation: gradientShift 5s ease infinite;
+            background-size: 200% auto;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% center; }
+            50% { background-position: 100% center; }
+            100% { background-position: 0% center; }
+        }
+
+        .subtitle {
+            font-size: 1.5rem;
+            color: #94a3b8;
+            margin-bottom: 2rem;
+            animation: fadeIn 2s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Tech badges */
+        .tech-badges {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin: 2rem 0;
+            flex-wrap: wrap;
+        }
+
+        .badge {
+            background: rgba(30, 41, 59, 0.8);
+            border: 1px solid rgba(100, 116, 139, 0.5);
+            padding: 0.5rem 1.5rem;
+            border-radius: 50px;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.3s ease;
+            animation: float 6s ease infinite;
+        }
+
+        .badge:nth-child(1) { animation-delay: 0s; }
+        .badge:nth-child(2) { animation-delay: 0.5s; }
+        .badge:nth-child(3) { animation-delay: 1s; }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .badge:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 5px 15px rgba(59, 130, 246, 0.4);
+        }
+
+        /* Project showcase */
+        .showcase {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            margin: 4rem 0;
+            align-items: center;
+        }
+
+        @media (max-width: 900px) {
+            .showcase {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .project-image {
+            position: relative;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3);
+            transform: perspective(1000px) rotateY(0deg);
+            transition: transform 0.5s ease;
+            animation: imageFloat 8s ease-in-out infinite;
+        }
+
+        @keyframes imageFloat {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            33% { transform: translateY(-10px) rotate(0.5deg); }
+            66% { transform: translateY(-5px) rotate(-0.5deg); }
+        }
+
+        .project-image img {
+            width: 100%;
+            display: block;
+            transition: transform 0.5s ease;
+        }
+
+        .project-image:hover img {
+            transform: scale(1.05);
+        }
+
+        .project-details {
+            padding: 1rem;
+        }
+
+        .project-details h2 {
+            font-size: 2.2rem;
+            margin-bottom: 1.5rem;
+            color: #e2e8f0;
+            position: relative;
+            display: inline-block;
+        }
+
+        .project-details h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background: #3b82f6;
+            animation: lineExpand 2s ease;
+        }
+
+        @keyframes lineExpand {
+            from { width: 0; }
+            to { width: 50px; }
+        }
+
+        .project-details p {
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+            color: #cbd5e1;
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+
+        @media (max-width: 600px) {
+            .features {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .feature {
+            background: rgba(30, 41, 59, 0.6);
+            padding: 1.2rem;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+            border-left: 3px solid #3b82f6;
+        }
+
+        .feature:hover {
+            transform: translateX(5px);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
+        }
+
+        .feature i {
+            color: #3b82f6;
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Tech details */
+        .tech-details {
+            margin: 4rem 0;
+        }
+
+        .tech-cards {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        @media (max-width: 900px) {
+            .tech-cards {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .tech-card {
+            background: rgba(15, 23, 42, 0.7);
+            border-radius: 10px;
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(100, 116, 139, 0.3);
+            animation: cardAppear 1s ease;
+        }
+
+        @keyframes cardAppear {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .tech-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5);
+            border-color: #3b82f6;
+        }
+
+        .tech-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .nextjs { color: #000000; }
+        .strapi { color: #8e75ff; }
+        .aws { color: #ff9900; }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 2rem;
+            margin-top: 4rem;
+            border-top: 1px solid rgba(100, 116, 139, 0.3);
+            animation: fadeIn 2s ease;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animated {
+            animation: fadeInUp 1s ease forwards;
+        }
+
+        .delay-1 { animation-delay: 0.2s; }
+        .delay-2 { animation-delay: 0.4s; }
+        .delay-3 { animation-delay: 0.6s; }
+        .delay-4 { animation-delay: 0.8s; }
+        .delay-5 { animation-delay: 1s; }
+
+        /* Decorative elements */
+        .orb {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(60px);
+            opacity: 0.2;
+            z-index: -1;
+        }
+
+        .orb-1 {
+            width: 300px;
+            height: 300px;
+            background: #3b82f6;
+            top: 10%;
+            left: 10%;
+            animation: moveOrb1 20s ease-in-out infinite;
+        }
+
+        .orb-2 {
+            width: 400px;
+            height: 400px;
+            background: #6366f1;
+            bottom: 5%;
+            right: 5%;
+            animation: moveOrb2 25s ease-in-out infinite;
+        }
+
+        @keyframes moveOrb1 {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            25% { transform: translate(100px, -50px) scale(1.1); }
+            50% { transform: translate(50px, 100px) scale(0.9); }
+            75% { transform: translate(-50px, 50px) scale(1.05); }
+        }
+
+        @keyframes moveOrb2 {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            25% { transform: translate(-100px, 50px) scale(1.1); }
+            50% { transform: translate(-50px, -100px) scale(0.9); }
+            75% { transform: translate(50px, -50px) scale(1.05); }
+        }
+    </style>
+</head>
+<body>
+    <!-- Decorative background elements -->
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+
+    <div class="container">
+        <header>
+            <div class="logo">DevPortfolio</div>
+            <h1>Headless CMS Platform</h1>
+            <p class="subtitle">Modern content management system with API-first architecture and multi-channel publishing</p>
+            
+            <div class="tech-badges">
+                <div class="badge animated">
+                    <i class="fab fa-react"></i> Next.js
+                </div>
+                <div class="badge animated delay-1">
+                    <i class="fas fa-server"></i> Strapi
+                </div>
+                <div class="badge animated delay-2">
+                    <i class="fab fa-aws"></i> AWS
+                </div>
+            </div>
+        </header>
+
+        <section class="showcase">
+            <div class="project-image animated">
+                <img src="https://images.unsplash.com/photo-1559028012-481c04fa702d?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Headless CMS Platform">
+            </div>
+            <div class="project-details">
+                <h2 class="animated">Project Overview</h2>
+                <p class="animated delay-1">A modern, scalable Headless CMS platform built with cutting-edge technologies to deliver content seamlessly across multiple channels. The platform offers unparalleled flexibility and performance for content creators and developers alike.</p>
+                <p class="animated delay-2">The system features a decoupled architecture with Strapi as the content management backend, Next.js for the frontend presentation layer, and AWS providing scalable cloud infrastructure for deployment and content delivery.</p>
+                
+                <div class="features">
+                    <div class="feature animated delay-3">
+                        <i class="fas fa-bolt"></i>
+                        <h3>High Performance</h3>
+                        <p>SSR and SSG capabilities for lightning-fast page loads</p>
+                    </div>
+                    <div class="feature animated delay-4">
+                        <i class="fas fa-expand"></i>
+                        <h3>Fully Scalable</h3>
+                        <p>Cloud infrastructure that grows with your needs</p>
+                    </div>
+                    <div class="feature animated delay-5">
+                        <i class="fas fa-mobile-alt"></i>
+                        <h3>Multi-Channel</h3>
+                        <p>Publish content to web, mobile, IoT and more</p>
+                    </div>
+                    <div class="feature animated delay-5">
+                        <i class="fas fa-cogs"></i>
+                        <h3>API-First</h3>
+                        <p>RESTful and GraphQL APIs for maximum flexibility</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="tech-details">
+            <h2 class="animated">Technology Stack</h2>
+            
+            <div class="tech-cards">
+                <div class="tech-card animated">
+                    <div class="tech-icon">
+                        <i class="fab fa-react nextjs"></i>
+                    </div>
+                    <h3>Next.js</h3>
+                    <p>React-based framework with server-side rendering and static site generation for optimal performance and SEO.</p>
+                    <p>Implemented dynamic routing, API routes, and incremental static regeneration for a seamless user experience.</p>
+                </div>
+                
+                <div class="tech-card animated delay-1">
+                    <div class="tech-icon">
+                        <i class="fas fa-server strapi"></i>
+                    </div>
+                    <h3>Strapi</h3>
+                    <p>Open-source headless CMS providing a flexible content structure and powerful admin panel.</p>
+                    <p>Custom content types, role-based access control, and REST/GraphQL API endpoints.</p>
+                </div>
+                
+                <div class="tech-card animated delay-2">
+                    <div class="tech-icon">
+                        <i class="fab fa-aws aws"></i>
+                    </div>
+                    <h3>AWS</h3>
+                    <p>Cloud infrastructure including S3 for media storage, EC2 for application hosting, and CloudFront for CDN.</p>
+                    <p>Implemented auto-scaling and load balancing for handling traffic spikes efficiently.</p>
+                </div>
+            </div>
+        </section>
+
+        <footer class="animated">
+            <p>© 2023 DevPortfolio. All rights reserved.</p>
+            <p>This project案例 study showcases a fully functional Headless CMS Platform</p>
+        </footer>
+    </div>
+
+    <script>
+        // Add scroll animations
+        document.addEventListener('DOMContentLoaded', function() {
+            const animatedElements = document.querySelectorAll('.animated');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = 1;
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, {
+                threshold: 0.1
+            });
+            
+            animatedElements.forEach(el => {
+                el.style.opacity = 0;
+                el.style.transform = 'translateY(20px)';
+                el.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
+                observer.observe(el);
+            });
+        });
+    </script>
+</body>
+</html>

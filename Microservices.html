@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Microservices API Gateway | Portfolio</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Base styles and resets */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Outfit', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            color: #e2e8f0;
+            line-height: 1.6;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        /* Header styles */
+        header {
+            text-align: center;
+            padding: 3rem 1rem;
+            position: relative;
+        }
+
+        .logo {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #10b981;
+            margin-bottom: 1rem;
+            display: inline-block;
+            position: relative;
+        }
+
+        .logo::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, #10b981, transparent);
+            animation: pulseLine 2s infinite;
+        }
+
+        @keyframes pulseLine {
+            0% { opacity: 0; transform: scaleX(0); }
+            50% { opacity: 1; transform: scaleX(1); }
+            100% { opacity: 0; transform: scaleX(0); }
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(90deg, #10b981, #3b82f6, #8b5cf6);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            animation: gradientShift 5s ease infinite;
+            background-size: 200% auto;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% center; }
+            50% { background-position: 100% center; }
+            100% { background-position: 0% center; }
+        }
+
+        .subtitle {
+            font-size: 1.5rem;
+            color: #94a3b8;
+            margin-bottom: 2rem;
+            animation: fadeIn 2s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Tech badges */
+        .tech-badges {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin: 2rem 0;
+            flex-wrap: wrap;
+        }
+
+        .badge {
+            background: rgba(30, 41, 59, 0.8);
+            border: 1px solid rgba(100, 116, 139, 0.5);
+            padding: 0.5rem 1.5rem;
+            border-radius: 50px;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.3s ease;
+            animation: float 6s ease infinite;
+        }
+
+        .badge:nth-child(1) { animation-delay: 0s; }
+        .badge:nth-child(2) { animation-delay: 0.5s; }
+        .badge:nth-child(3) { animation-delay: 1s; }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .badge:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 5px 15px rgba(16, 185, 129, 0.4);
+        }
+
+        /* Project showcase */
+        .showcase {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            margin: 4rem 0;
+            align-items: center;
+        }
+
+        @media (max-width: 900px) {
+            .showcase {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .project-image {
+            position: relative;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3);
+            transform: perspective(1000px) rotateY(0deg);
+            transition: transform 0.5s ease;
+            animation: imageFloat 8s ease-in-out infinite;
+        }
+
+        @keyframes imageFloat {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            33% { transform: translateY(-10px) rotate(0.5deg); }
+            66% { transform: translateY(-5px) rotate(-0.5deg); }
+        }
+
+        .project-image img {
+            width: 100%;
+            display: block;
+            transition: transform 0.5s ease;
+        }
+
+        .project-image:hover img {
+            transform: scale(1.05);
+        }
+
+        .project-details {
+            padding: 1rem;
+        }
+
+        .project-details h2 {
+            font-size: 2.2rem;
+            margin-bottom: 1.5rem;
+            color: #e2e8f0;
+            position: relative;
+            display: inline-block;
+        }
+
+        .project-details h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background: #10b981;
+            animation: lineExpand 2s ease;
+        }
+
+        @keyframes lineExpand {
+            from { width: 0; }
+            to { width: 50px; }
+        }
+
+        .project-details p {
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+            color: #cbd5e1;
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+
+        @media (max-width: 600px) {
+            .features {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .feature {
+            background: rgba(30, 41, 59, 0.6);
+            padding: 1.2rem;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+            border-left: 3px solid #10b981;
+        }
+
+        .feature:hover {
+            transform: translateX(5px);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
+        }
+
+        .feature i {
+            color: #10b981;
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Tech details */
+        .tech-details {
+            margin: 4rem 0;
+        }
+
+        .tech-cards {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        @media (max-width: 900px) {
+            .tech-cards {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .tech-card {
+            background: rgba(15, 23, 42, 0.7);
+            border-radius: 10px;
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(100, 116, 139, 0.3);
+            animation: cardAppear 1s ease;
+        }
+
+        @keyframes cardAppear {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .tech-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5);
+            border-color: #10b981;
+        }
+
+        .tech-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .react { color: #61dafb; }
+        .nodejs { color: #68a063; }
+        .tailwind { color: #38bdf8; }
+
+        /* Architecture Visualization */
+        .architecture {
+            margin: 5rem 0;
+            padding: 2rem;
+            background: rgba(15, 23, 42, 0.5);
+            border-radius: 15px;
+            border: 1px solid rgba(100, 116, 139, 0.3);
+        }
+
+        .architecture h2 {
+            text-align: center;
+            margin-bottom: 3rem;
+            font-size: 2.5rem;
+            color: #e2e8f0;
+        }
+
+        .microservices-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            grid-template-rows: repeat(3, auto);
+            gap: 1.5rem;
+            position: relative;
+        }
+
+        .service {
+            background: rgba(30, 41, 59, 0.8);
+            padding: 1.5rem;
+            border-radius: 10px;
+            text-align: center;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(100, 116, 139, 0.3);
+            animation: servicePulse 4s infinite;
+        }
+
+        @keyframes servicePulse {
+            0%, 100% { box-shadow: 0 0 0 rgba(16, 185, 129, 0.4); }
+            50% { box-shadow: 0 0 20px rgba(16, 185, 129, 0.8); }
+        }
+
+        .service:nth-child(1) { animation-delay: 0s; grid-column: 3; grid-row: 1; }
+        .service:nth-child(2) { animation-delay: 0.5s; grid-column: 2; grid-row: 2; }
+        .service:nth-child(3) { animation-delay: 1s; grid-column: 4; grid-row: 2; }
+        .service:nth-child(4) { animation-delay: 1.5s; grid-column: 1; grid-row: 3; }
+        .service:nth-child(5) { animation-delay: 2s; grid-column: 5; grid-row: 3; }
+
+        .service:hover {
+            transform: scale(1.05);
+            border-color: #10b981;
+        }
+
+        .service i {
+            font-size: 2rem;
+            color: #10b981;
+            margin-bottom: 1rem;
+        }
+
+        .api-gateway {
+            grid-column: 3;
+            grid-row: 2;
+            background: rgba(16, 185, 129, 0.2);
+            border: 2px solid #10b981;
+            padding: 2rem;
+            border-radius: 10px;
+            text-align: center;
+            z-index: 10;
+            animation: gatewayPulse 3s infinite;
+        }
+
+        @keyframes gatewayPulse {
+            0%, 100% { transform: scale(1); box-shadow: 0 0 0 rgba(16, 185, 129, 0.4); }
+            50% { transform: scale(1.02); box-shadow: 0 0 30px rgba(16, 185, 129, 0.6); }
+        }
+
+        /* Connection lines */
+        .microservices-grid::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                linear-gradient(to right, transparent 19%, transparent 20%, #10b981 20%, #10b981 21%, transparent 21%, transparent 39%, transparent 40%, #10b981 40%, #10b981 41%, transparent 41%, transparent 59%, transparent 60%, #10b981 60%, #10b981 61%, transparent 61%, transparent 79%, transparent 80%, #10b981 80%, #10b981 81%, transparent 81%),
+                linear-gradient(to bottom, transparent 19%, transparent 20%, #10b981 20%, #10b981 21%, transparent 21%, transparent 39%, transparent 40%, #10b981 40%, #10b981 41%, transparent 41%, transparent 59%, transparent 60%, #10b981 60%, #10b981 61%, transparent 61%, transparent 79%, transparent 80%, #10b981 80%, #10b981 81%, transparent 81%);
+            opacity: 0.3;
+            pointer-events: none;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 2rem;
+            margin-top: 4rem;
+            border-top: 1px solid rgba(100, 116, 139, 0.3);
+            animation: fadeIn 2s ease;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animated {
+            animation: fadeInUp 1s ease forwards;
+        }
+
+        .delay-1 { animation-delay: 0.2s; }
+        .delay-2 { animation-delay: 0.4s; }
+        .delay-3 { animation-delay: 0.6s; }
+        .delay-4 { animation-delay: 0.8s; }
+        .delay-5 { animation-delay: 1s; }
+
+        /* Decorative elements */
+        .orb {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(60px);
+            opacity: 0.2;
+            z-index: -1;
+        }
+
+        .orb-1 {
+            width: 300px;
+            height: 300px;
+            background: #10b981;
+            top: 10%;
+            left: 10%;
+            animation: moveOrb1 20s ease-in-out infinite;
+        }
+
+        .orb-2 {
+            width: 400px;
+            height: 400px;
+            background: #3b82f6;
+            bottom: 5%;
+            right: 5%;
+            animation: moveOrb2 25s ease-in-out infinite;
+        }
+
+        @keyframes moveOrb1 {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            25% { transform: translate(100px, -50px) scale(1.1); }
+            50% { transform: translate(50px, 100px) scale(0.9); }
+            75% { transform: translate(-50px, 50px) scale(1.05); }
+        }
+
+        @keyframes moveOrb2 {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            25% { transform: translate(-100px, 50px) scale(1.1); }
+            50% { transform: translate(-50px, -100px) scale(0.9); }
+            75% { transform: translate(50px, -50px) scale(1.05); }
+        }
+    </style>
+</head>
+<body>
+    <!-- Decorative background elements -->
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+
+    <div class="container">
+        <header>
+            <div class="logo">DevPortfolio</div>
+            <h1>Microservices API Gateway</h1>
+            <p class="subtitle">Modern API gateway built with React.js, Node.js, and Tailwind CSS</p>
+            
+            <div class="tech-badges">
+                <div class="badge animated">
+                    <i class="fab fa-react"></i> React.js
+                </div>
+                <div class="badge animated delay-1">
+                    <i class="fab fa-node-js"></i> Node.js
+                </div>
+                <div class="badge animated delay-2">
+                    <i class="fas fa-palette"></i> Tailwind CSS
+                </div>
+            </div>
+        </header>
+
+        <section class="showcase">
+            <div class="project-image animated">
+                <img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Microservices API Gateway">
+            </div>
+            <div class="project-details">
+                <h2 class="animated">Project Overview</h2>
+                <p class="animated delay-1">A modern, responsive API Gateway built with React.js for the frontend dashboard, Node.js for the backend server, and styled with Tailwind CSS for a clean, consistent design system.</p>
+                <p class="animated delay-2">The gateway features a responsive admin dashboard for monitoring API traffic, managing services, and configuring routing rules with a modern, accessible UI built with React components.</p>
+                
+                <div class="features">
+                    <div class="feature animated delay-3">
+                        <i class="fas fa-tachometer-alt"></i>
+                        <h3>React Dashboard</h3>
+                        <p>Real-time monitoring UI built with React hooks and components</p>
+                    </div>
+                    <div class="feature animated delay-4">
+                        <i class="fas fa-server"></i>
+                        <h3>Node.js Backend</h3>
+                        <p>High-performance Express server with middleware architecture</p>
+                    </div>
+                    <div class="feature animated delay-5">
+                        <i class="fas fa-paint-brush"></i>
+                        <h3>Tailwind CSS</h3>
+                        <p>Utility-first CSS framework for consistent, responsive design</p>
+                    </div>
+                    <div class="feature animated delay-5">
+                        <i class="fas fa-mobile-alt"></i>
+                        <h3>Responsive Design</h3>
+                        <p>Fully responsive interface that works on all device sizes</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="architecture">
+            <h2 class="animated">System Architecture</h2>
+            <div class="microservices-grid">
+                <div class="api-gateway animated">
+                    <i class="fas fa-door-open"></i>
+                    <h3>API Gateway</h3>
+                    <p>React + Node.js + Tailwind</p>
+                </div>
+                
+                <div class="service animated delay-1">
+                    <i class="fas fa-users"></i>
+                    <h4>User Service</h4>
+                    <p>User management</p>
+                </div>
+                
+                <div class="service animated delay-2">
+                    <i class="fas fa-shopping-cart"></i>
+                    <h4>Order Service</h4>
+                    <p>Order processing</p>
+                </div>
+                
+                <div class="service animated delay-3">
+                    <i class="fas fa-box"></i>
+                    <h4>Product Service</h4>
+                    <p>Product catalog</p>
+                </div>
+                
+                <div class="service animated delay-4">
+                    <i class="fas fa-money-bill-wave"></i>
+                    <h4>Payment Service</h4>
+                    <p>Payment processing</p>
+                </div>
+                
+                <div class="service animated delay-5">
+                    <i class="fas fa-bell"></i>
+                    <h4>Notification Service</h4>
+                    <p>User notifications</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="tech-details">
+            <h2 class="animated">Technology Stack</h2>
+            
+            <div class="tech-cards">
+                <div class="tech-card animated">
+                    <div class="tech-icon">
+                        <i class="fab fa-react react"></i>
+                    </div>
+                    <h3>React.js</h3>
+                    <p>JavaScript library for building user interfaces with component-based architecture.</p>
+                    <p>Used to create an interactive admin dashboard with real-time monitoring of API traffic and gateway performance.</p>
+                </div>
+                
+                <div class="tech-card animated delay-1">
+                    <div class="tech-icon">
+                        <i class="fab fa-node-js nodejs"></i>
+                    </div>
+                    <h3>Node.js</h3>
+                    <p>JavaScript runtime for building scalable network applications with non-blocking I/O.</p>
+                    <p>Powered the API gateway server with Express.js, handling routing, middleware, and service integration.</p>
+                </div>
+                
+                <div class="tech-card animated delay-2">
+                    <div class="tech-icon">
+                        <i class="fas fa-palette tailwind"></i>
+                    </div>
+                    <h3>Tailwind CSS</h3>
+                    <p>Utility-first CSS framework for rapidly building custom user interfaces.</p>
+                    <p>Created a consistent, responsive design system for both the gateway admin UI and documentation portal.</p>
+                </div>
+            </div>
+        </section>
+
+        <footer class="animated">
+            <p>© 2023 DevPortfolio. All rights reserved.</p>
+            <p>This project case study showcases a modern API Gateway built with React.js, Node.js, and Tailwind CSS</p>
+        </footer>
+    </div>
+
+    <script>
+        // Add scroll animations
+        document.addEventListener('DOMContentLoaded', function() {
+            const animatedElements = document.querySelectorAll('.animated');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = 1;
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, {
+                threshold: 0.1
+            });
+            
+            animatedElements.forEach(el => {
+                el.style.opacity = 0;
+                el.style.transform = 'translateY(20px)';
+                el.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
+                observer.observe(el);
+            });
+        });
+    </script>
+</body>
+</html>

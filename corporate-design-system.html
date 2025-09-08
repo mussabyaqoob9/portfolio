@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Corporate Design System - Interactive Portfolio</title>
+<script src="https://cdn.jsdelivr.net/npm/tsparticles@2/tsparticles.bundle.min.js"></script>
+<style>
+:root{
+  --bg:#f0f2f5;
+  --text:#333;
+  --primary:#1abc9c;
+  --secondary:#16a085;
+  --card:#fff;
+  --overlay:rgba(0,0,0,0.6);
+  --font:"Poppins",sans-serif;
+  --transition:0.5s;
+  --toggle-bg: #ddd;
+  --toggle-circle: #fff;
+  --toggle-text: #333;
+}
+body.dark-mode{
+  --bg:#121212;
+  --text:#f1f1f1;
+  --primary:#8e44ad;
+  --secondary:#9b59b6;
+  --card:#1e1e1e;
+  --overlay:rgba(0,0,0,0.7);
+  --toggle-bg: #8e44ad;
+  --toggle-circle: #f1f1f1;
+  --toggle-text: #f1f1f1;
+}
+*{margin:0;padding:0;box-sizing:border-box;font-family:var(--font);}
+body{background:var(--bg);color:var(--text);scroll-behavior:smooth;transition:background var(--transition),color var(--transition);overflow-x:hidden;}
+
+/* Hero Section */
+.hero{height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;position:relative;overflow:hidden;}
+.hero h1{font-size:3.5rem;background:linear-gradient(90deg,#1abc9c,#16a085,#3498db);background-clip:text;color:transparent;animation:gradientText 5s infinite linear;}
+.hero p{font-size:1.3rem;margin-top:10px;opacity:0;transform:translateY(20px);animation:fadeUp 1s forwards;animation-delay:0.5s;}
+@keyframes gradientText{0%{background-position:0% 50%;}50%{background-position:100% 50%;}100%{background-position:0% 50%;}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);}}
+
+/* Navbar */
+nav{position:fixed;top:0;width:100%;background:var(--bg);display:flex;justify-content:center;gap:30px;padding:15px 0;box-shadow:0 4px 15px rgba(0,0,0,0.1);z-index:999;transition:background var(--transition);}
+nav a{color:var(--text);text-decoration:none;font-weight:500;transition:color var(--transition);}
+nav a:hover{color:var(--primary);}
+
+/* Enhanced Theme Toggle */
+.theme-toggle-container {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.theme-label {
+  font-size: 0.85rem;
+  color: var(--text);
+  opacity: 0.8;
+  transition: opacity 0.3s;
+}
+
+.theme-toggle {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 60px;
+  height: 30px;
+  background: var(--toggle-bg);
+  border-radius: 50px;
+  padding: 5px;
+  cursor: pointer;
+  transition: background 0.3s;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+.theme-toggle::before {
+  content: '';
+  position: absolute;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: var(--toggle-circle);
+  transition: transform 0.3s, background 0.3s;
+  transform: translateX(0);
+}
+
+body.dark-mode .theme-toggle::before {
+  transform: translateX(30px);
+}
+
+.toggle-icons {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  padding: 0 5px;
+  pointer-events: none;
+}
+
+.toggle-icons span {
+  font-size: 12px;
+  color: var(--toggle-text);
+  transition: color 0.3s;
+}
+
+/* Sections */
+section{padding:80px 20px;max-width:1200px;margin:auto;}
+.section-title{font-size:2rem;text-align:center;margin-bottom:50px;position:relative;}
+.section-title::after{content:"";width:60px;height:3px;background:var(--primary);display:block;margin:15px auto;border-radius:3px;}
+
+/* Stats */
+.stats{display:flex;justify-content:center;gap:50px;margin-top:50px;flex-wrap:wrap;}
+.stat-card{background:var(--card);padding:30px;border-radius:15px;box-shadow:0 15px 30px rgba(0,0,0,0.1);text-align:center;transition:transform 0.3s;}
+.stat-card:hover{transform:scale(1.05);}
+.stat-card h3{font-size:2rem;color:var(--primary);}
+.stat-card p{margin-top:5px;color:#555;}
+
+/* Portfolio Grid */
+.portfolio-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:25px;}
+.portfolio-item{position:relative;overflow:hidden;border-radius:20px;cursor:pointer;transform:translateY(50px);opacity:0;transition:all 0.7s ease;box-shadow:0 15px 30px rgba(0,0,0,0.1);background:var(--card);}
+.portfolio-item.show{transform:translateY(0);opacity:1;transition:all 0.7s ease;}
+.portfolio-img{width:100%;height:220px;object-fit:cover;transition:transform 0.5s, filter 0.5s;}
+.portfolio-item:hover .portfolio-img{transform:scale(1.05);filter:brightness(0.8);}
+.portfolio-overlay{position:absolute;top:0;left:0;width:100%;height:100%;background:var(--overlay);display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;opacity:0;transition:all 0.5s;transform:translateY(20px);}
+.portfolio-item:hover .portfolio-overlay{opacity:1;transform:translateY(0);}
+.portfolio-overlay h3{color:#fff;font-size:1.5rem;margin-bottom:10px;}
+.portfolio-overlay p{color:#ddd;font-size:1rem;}
+
+/* Testimonials Carousel */
+.testimonial-container{position:relative;overflow:hidden;max-width:1000px;margin:auto;}
+.testimonials{display:flex;transition:transform 0.5s ease;}
+.testimonial{min-width:300px;background:var(--card);padding:20px;border-radius:15px;box-shadow:0 15px 30px rgba(0,0,0,0.1);margin:0 10px;flex-shrink:0;text-align:center;}
+.testimonial p{font-style:italic;color:#555;}
+.testimonial h4{margin-top:10px;color:var(--primary);}
+.carousel-btn{position:absolute;top:50%;transform:translateY(-50%);background:var(--primary);border:none;color:#fff;padding:10px 15px;border-radius:50%;cursor:pointer;z-index:2;}
+.carousel-btn:hover{background:var(--secondary);}
+#prev{left:10px;}
+#next{right:10px;}
+
+/* Footer */
+footer{padding:40px;text-align:center;background:var(--card);color:var(--text);transition:all var(--transition);}
+
+/* Scroll reveal */
+.scroll-reveal{opacity:0;transform:translateY(50px);transition:0.7s;}
+.scroll-reveal.show{opacity:1;transform:translateY(0);}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .theme-label {
+    display: none;
+  }
+  
+  .theme-toggle-container {
+    top: 15px;
+    right: 15px;
+  }
+}
+</style>
+</head>
+<body>
+
+<!-- Enhanced Theme Toggle -->
+<div class="theme-toggle-container">
+  <span class="theme-label" id="theme-label">Light Mode</span>
+  <div class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+    <div class="toggle-icons">
+      <span>🌞</span>
+      <span>🌙</span>
+    </div>
+  </div>
+</div>
+
+<!-- Hero -->
+<section class="hero">
+  <div id="tsparticles" style="position:absolute;top:0;left:0;width:100%;height:100%;z-index:0;"></div>
+  <h1 style="position:relative;z-index:1;">Corporate Design System</h1>
+  <p style="position:relative;z-index:1;">Modern, Scalable & Interactive UI/UX Solutions</p>
+</section>
+
+<!-- Navbar -->
+<nav>
+  <a href="#about">About</a>
+  <a href="#stats">Stats</a>
+  <a href="#portfolio">Portfolio</a>
+  <a href="#testimonials">Testimonials</a>
+</nav>
+
+<!-- About Section -->
+<section id="about">
+  <h2 class="section-title scroll-reveal">About the Project</h2>
+  <p class="scroll-reveal" style="max-width:700px;margin:auto;text-align:center;">
+    A modern Corporate Design System built with Figma for UI/UX, Storybook for reusable React components, and React for implementation.
+  </p>
+</section>
+
+<!-- Stats Section -->
+<section id="stats">
+  <h2 class="section-title scroll-reveal">Our Achievements</h2>
+  <div class="stats">
+    <div class="stat-card scroll-reveal"><h3 class="counter" data-target="120">0</h3><p>Projects Completed</p></div>
+    <div class="stat-card scroll-reveal"><h3 class="counter" data-target="80">0</h3><p>Components Built</p></div>
+    <div class="stat-card scroll-reveal"><h3 class="counter" data-target="50">0</h3><p>Clients Served</p></div>
+  </div>
+</section>
+
+<!-- Portfolio Section -->
+<section id="portfolio">
+  <h2 class="section-title scroll-reveal">Portfolio Projects</h2>
+  <div class="portfolio-grid scroll-reveal">
+    <div class="portfolio-item">
+      <img src="corporate1.png" alt="Project 1" class="portfolio-img">
+      <div class="portfolio-overlay">
+        <h3>Corporate Website Design</h3>
+        <p>Modern UI/UX redesign for a large corporate client.</p>
+      </div>
+    </div>
+    <div class="portfolio-item">
+      <img src="corporate2.png" alt="Project 2" class="portfolio-img">
+      <div class="portfolio-overlay">
+        <h3>Corporate Website Design</h3>
+        <p>Interactive prototypes and user flows for a fintech app.</p>
+      </div>
+    </div>
+    <div class="portfolio-item">
+      <img src="corporate3.png" alt="Project 3" class="portfolio-img">
+      <div class="portfolio-overlay">
+        <h3>Corporate Website Design</h3>
+        <p>Reusable components and consistent visual language.</p>
+      </div>
+    </div>
+    <div class="portfolio-item">
+      <img src="corporate4.png" alt="Project 4" class="portfolio-img">
+      <div class="portfolio-overlay">
+        <h3>Corporate Website Design</h3>
+        <p>High-fidelity UI/UX for a large online store.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Testimonials Carousel -->
+<section id="testimonials">
+  <h2 class="section-title scroll-reveal">Testimonials</h2>
+  <div class="testimonial-container">
+    <button id="prev" class="carousel-btn">‹</button>
+    <div class="testimonials" id="testimonial-track">
+      <div class="testimonial scroll-reveal">
+        <p>"Amazing UI components, fully reusable and scalable."</p>
+        <h4>- Client A</h4>
+      </div>
+      <div class="testimonial scroll-reveal">
+        <p>"The design system saved us weeks of development time!"</p>
+        <h4>- Client B</h4>
+      </div>
+      <div class="testimonial scroll-reveal">
+        <p>"Highly professional and interactive portfolio."</p>
+        <h4>- Client C</h4>
+      </div>
+    </div>
+    <button id="next" class="carousel-btn">›</button>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer>
+  <p>© 2025 Your Name • Interactive Portfolio</p>
+</footer>
+
+<script>
+// Scroll reveal
+const scrollElements = document.querySelectorAll(".scroll-reveal");
+const observer = new IntersectionObserver(entries=>{
+  entries.forEach(entry=>{
+    if(entry.isIntersecting) entry.target.classList.add("show");
+  });
+},{threshold:0.2});
+scrollElements.forEach(el=>observer.observe(el));
+
+// Enhanced Dark/Light Mode Toggle
+const toggle = document.getElementById('themeToggle');
+const themeLabel = document.getElementById('theme-label');
+
+// Check for saved theme preference or respect OS preference
+const savedTheme = localStorage.getItem('theme');
+const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+if (savedTheme === 'dark' || (!savedTheme && systemPrefersDark)) {
+  document.body.classList.add('dark-mode');
+  themeLabel.textContent = 'Dark Mode';
+} else {
+  document.body.classList.remove('dark-mode');
+  themeLabel.textContent = 'Light Mode';
+}
+
+toggle.addEventListener('click', () => {
+  document.body.classList.toggle('dark-mode');
+  
+  if (document.body.classList.contains('dark-mode')) {
+    themeLabel.textContent = 'Dark Mode';
+    localStorage.setItem('theme', 'dark');
+  } else {
+    themeLabel.textContent = 'Light Mode';
+    localStorage.setItem('theme', 'light');
+  }
+});
+
+// Listen for system theme changes
+window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
+  // Only apply system theme if no manual selection was made
+  if (!localStorage.getItem('theme')) {
+    if (e.matches) {
+      document.body.classList.add('dark-mode');
+      themeLabel.textContent = 'Dark Mode';
+    } else {
+      document.body.classList.remove('dark-mode');
+      themeLabel.textContent = 'Light Mode';
+    }
+  }
+});
+
+// Counters
+const counters = document.querySelectorAll('.counter');
+counters.forEach(counter=>{
+  const updateCount = ()=>{
+    const target = +counter.getAttribute('data-target');
+    const current = +counter.innerText;
+    const increment = Math.ceil(target/200);
+    if(current<target){ counter.innerText = current+increment; setTimeout(updateCount,20);}
+    else counter.innerText = target;
+  };
+  updateCount();
+});
+
+// tsParticles background
+tsParticles.load("tsparticles", {
+  particles:{number:{value:80},size:{value:3},move:{enable:true,speed:1},line_linked:{enable:true,opacity:0.2}},
+  interactivity:{events:{onhover:{enable:true,mode:"repulse"}}}
+});
+
+// Testimonials Carousel
+const track = document.getElementById('testimonial-track');
+let index=0;
+const total = track.children.length;
+document.getElementById('next').addEventListener('click',()=>{index=(index+1)%total;track.style.transform=`translateX(-${index*320}px)`;});
+document.getElementById('prev').addEventListener('click',()=>{index=(index-1+total)%total;track.style.transform=`translateX(-${index*320}px)`;});
+setInterval(()=>{index=(index+1)%total;track.style.transform=`translateX(-${index*320}px)`;},5000);
+
+// Portfolio scroll reveal
+const portfolioItems = document.querySelectorAll(".portfolio-item");
+portfolioItems.forEach(item=>{
+  const observer = new IntersectionObserver(entries=>{
+    entries.forEach(entry=>{
+      if(entry.isIntersecting) entry.target.classList.add("show");
+    });
+  },{threshold:0.2});
+  observer.observe(item);
+});
+</script>
+</body>
+</html>

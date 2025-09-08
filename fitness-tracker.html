@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fitness Tracker App - Portfolio Project</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* ========== VARIABLES ========== */
+    :root {
+      --bg-color: #f8f9fa;
+      --text-color: #333;
+      --card-bg: #fff;
+      --header-bg: linear-gradient(135deg, #28a745, #20c997); /* green + teal */
+      --footer-bg: #f1f3f5;
+      --btn-bg: #28a745;
+      --btn-hover: #218838;
+      --accent: #20c997; /* teal for highlights */
+      --toggle-bg: #f1f1f1;
+      --toggle-border: #ddd;
+    }
+
+    body.dark-mode {
+      --bg-color: #121212;
+      --text-color: #f1f1f1;
+      --card-bg: #1e1e1e;
+      --header-bg: linear-gradient(135deg, #1c7c54, #17a589); /* darker green + teal */
+      --footer-bg: #1a1a1a;
+      --btn-bg: #20c997;
+      --btn-hover: #17a589;
+      --accent: #28a745;
+      --toggle-bg: #333;
+      --toggle-border: #444;
+    }
+
+    /* ========== BASE STYLES ========== */
+    body {
+      font-family: "Poppins", sans-serif;
+      margin: 0;
+      padding: 0;
+      background: var(--bg-color);
+      color: var(--text-color);
+      transition: background 0.4s, color 0.4s;
+      scroll-behavior: smooth;
+    }
+
+    header {
+      background: var(--header-bg);
+      color: #fff;
+      text-align: center;
+      padding: 60px 20px 40px 20px;
+      position: relative;
+      animation: fadeInDown 1.2s ease-in-out;
+    }
+
+    header h1 {
+      font-size: 2.5rem;
+      margin-bottom: 10px;
+    }
+
+    header p {
+      font-size: 1.2rem;
+    }
+
+    /* ========== NAVIGATION ========== */
+    nav {
+      position: sticky;
+      top: 0;
+      background: var(--bg-color);
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      padding: 15px 0;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      z-index: 999;
+      transition: background 0.4s;
+    }
+
+    nav a {
+      text-decoration: none;
+      color: var(--text-color);
+      font-weight: 500;
+      transition: color 0.3s;
+    }
+
+    nav a:hover {
+      color: var(--accent);
+    }
+
+    /* ========== IMPROVED DARK MODE TOGGLE ========== */
+    .dark-toggle-container {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .dark-toggle-label {
+      font-size: 0.9rem;
+      color: rgba(255, 255, 255, 0.8);
+    }
+
+    .toggle-switch {
+      position: relative;
+      display: inline-block;
+      width: 60px;
+      height: 30px;
+    }
+
+    .toggle-switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: var(--toggle-bg);
+      border: 1px solid var(--toggle-border);
+      transition: .4s;
+      border-radius: 34px;
+    }
+
+    .slider:before {
+      position: absolute;
+      content: "";
+      height: 22px;
+      width: 22px;
+      left: 4px;
+      bottom: 3px;
+      background-color: white;
+      transition: .4s;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    input:checked + .slider {
+      background-color: var(--accent);
+    }
+
+    input:checked + .slider:before {
+      transform: translateX(28px);
+      content: "🌙";
+      font-size: 12px;
+      color: #333;
+    }
+
+    input:not(:checked) + .slider:before {
+      content: "☀️";
+      font-size: 12px;
+      color: #333;
+    }
+
+    /* ========== CONTENT ========== */
+    .project-container {
+      max-width: 1100px;
+      margin: 50px auto;
+      padding: 0 20px;
+    }
+
+    section {
+      margin-bottom: 60px;
+    }
+
+    .project-intro {
+      text-align: center;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 25px;
+    }
+
+    .feature-card {
+      background: var(--card-bg);
+      padding: 25px;
+      border-radius: 15px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+      text-align: center;
+      transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.4s, opacity 0.6s;
+      opacity: 0;
+      transform: translateY(40px);
+    }
+
+    .feature-card.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .feature-card img {
+      width: 80px;
+      margin-bottom: 15px;
+      animation: bounce 3s infinite;
+    }
+
+    .feature-card h3 {
+      margin-bottom: 10px;
+      font-size: 1.2rem;
+      color: var(--accent);
+    }
+
+    /* ========== MOBILE MOCKUP ========== */
+    .mockup-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 25px;
+    }
+
+    .phone-frame {
+      width: 280px;
+      height: 560px;
+      border: 14px solid #000;
+      border-radius: 40px;
+      position: relative;
+      box-shadow: 0 6px 25px rgba(0,0,0,0.2);
+      background: #000;
+      overflow: hidden;
+      transition: transform 0.4s, opacity 0.6s;
+      opacity: 0;
+      transform: translateY(60px);
+    }
+
+    .phone-frame.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .phone-frame img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 28px;
+    }
+
+    .phone-notch {
+      width: 120px;
+      height: 28px;
+      background: #000;
+      border-radius: 0 0 14px 14px;
+      position: absolute;
+      top: -14px;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    footer {
+      text-align: center;
+      padding: 30px;
+      background: var(--footer-bg);
+      margin-top: 50px;
+      transition: background 0.4s;
+    }
+
+    .btn {
+      display: inline-block;
+      margin-top: 20px;
+      background: var(--btn-bg);
+      color: #fff;
+      padding: 12px 25px;
+      border-radius: 10px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: background 0.3s ease;
+    }
+
+    .btn:hover {
+      background: var(--btn-hover);
+    }
+
+    /* ========== ANIMATIONS ========== */
+    @keyframes fadeInDown {
+      from {opacity: 0; transform: translateY(-40px);}
+      to {opacity: 1; transform: translateY(0);}
+    }
+
+    @keyframes bounce {
+      0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
+      40% {transform: translateY(-10px);}
+      60% {transform: translateY(-5px);}
+    }
+
+    /* ========== RESPONSIVE ========== */
+    @media (max-width: 768px) {
+      header h1 { font-size: 2rem; }
+      .phone-frame { width: 200px; height: 420px; }
+      nav { gap: 15px; }
+      .dark-toggle-container { top: 15px; right: 15px; }
+      .dark-toggle-label { display: none; }
+      .toggle-switch { width: 50px; height: 26px; }
+      input:checked + .slider:before { transform: translateX(22px); }
+    }
+  </style>
+</head>
+<body>
+
+  <header id="about">
+    <h1>Fitness Tracker App</h1>
+    <p>React Native • Firebase • Cross-platform</p>
+    <div class="dark-toggle-container">
+      <span class="dark-toggle-label">Theme</span>
+      <label class="toggle-switch" aria-label="Toggle dark mode">
+        <input type="checkbox" id="darkModeToggle">
+        <span class="slider"></span>
+      </label>
+    </div>
+  </header>
+
+  <nav>
+    <a href="#about">About</a>
+    <a href="#features">Features</a>
+    <a href="#screenshots">Screenshots</a>
+  </nav>
+
+  <div class="project-container">
+
+    <section class="project-intro scroll-reveal">
+      <h2>About the Project</h2>
+      <p>
+        The Fitness Tracker App is a cross-platform mobile solution built with React Native and Firebase. 
+        It helps users track workouts, monitor progress, and stay motivated with personalized goals. 
+        This project showcases my skills in mobile UI/UX, backend integration, and responsive design.
+      </p>
+    </section>
+
+    <section id="features" class="features-grid">
+      <div class="feature-card scroll-reveal">
+        <img src="track.png" alt="Workouts">
+        <h3>Workout Tracking</h3>
+        <p>Log workouts, track sets & reps, and follow guided training plans.</p>
+      </div>
+      <div class="feature-card scroll-reveal">
+        <img src="nutrition.png" alt="Nutrition">
+        <h3>Nutrition</h3>
+        <p>Track calories, macros, and meals to stay on top of your diet goals.</p>
+      </div>
+      <div class="feature-card scroll-reveal">
+        <img src="progress.png" alt="Progress">
+        <h3>Progress Monitoring</h3>
+        <p>Visual charts and analytics to monitor progress over time.</p>
+      </div>
+      <div class="feature-card scroll-reveal">
+        <img src="https://img.icons8.com/color/96/user.png" alt="Social">
+        <h3>Profile & Social</h3>
+        <p>Customizable profile and community-driven social features.</p>
+      </div>
+    </section>
+
+    <section id="screenshots" class="screenshots scroll-reveal">
+      <h2>App Screenshots</h2>
+      <div class="mockup-container">
+        <div class="phone-frame scroll-reveal">
+          <div class="phone-notch"></div>
+          <img src="screenshot1.png" alt="App Screenshot 1">
+        </div>
+        <div class="phone-frame scroll-reveal">
+          <div class="phone-notch"></div>
+          <img src="screenshot2.png" alt="App Screenshot 2">
+        </div>
+        <div class="phone-frame scroll-reveal">
+          <div class="phone-notch"></div>
+          <img src="screenshot3.png" alt="App Screenshot 3">
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <footer>
+    <p>© 2025 Your Name • Portfolio Project</p>
+  </footer>
+
+  <script>
+    // Dark Mode Toggle with localStorage
+    const toggle = document.getElementById("darkModeToggle");
+    
+    // Check for saved theme preference
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme === 'dark') {
+      document.body.classList.add('dark-mode');
+      toggle.checked = true;
+    } else if (savedTheme === 'light') {
+      document.body.classList.remove('dark-mode');
+      toggle.checked = false;
+    } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+      // Check system preference if no saved preference
+      document.body.classList.add('dark-mode');
+      toggle.checked = true;
+    }
+    
+    // Toggle theme
+    toggle.addEventListener("change", () => {
+      if (toggle.checked) {
+        document.body.classList.add("dark-mode");
+        localStorage.setItem('theme', 'dark');
+      } else {
+        document.body.classList.remove("dark-mode");
+        localStorage.setItem('theme', 'light');
+      }
+    });
+
+    // Listen for system theme changes
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', event => {
+      if (!localStorage.getItem('theme')) { // Only if user hasn't set a preference
+        if (event.matches) {
+          document.body.classList.add("dark-mode");
+          toggle.checked = true;
+        } else {
+          document.body.classList.remove("dark-mode");
+          toggle.checked = false;
+        }
+      }
+    });
+
+    // Scroll Reveal Animation
+    const reveals = document.querySelectorAll(".scroll-reveal, .feature-card, .phone-frame");
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if(entry.isIntersecting){
+          entry.target.classList.add("show");
+        }
+      });
+    }, { threshold: 0.2 });
+
+    reveals.forEach(el => observer.observe(el));
+  </script>
+
+</body>
+</html>

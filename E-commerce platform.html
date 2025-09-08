@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>E-Commerce Platform - Portfolio</title>
+  <style>
+    /* ================== VARIABLES ================== */
+    :root {
+      --bg-color: linear-gradient(135deg, #667eea, #764ba2);
+      --text-color: #fff;
+      --card-bg: rgba(255,255,255,0.1);
+      --card-text: #fff;
+      --accent: #e0e0ff;
+      --shadow-color: rgba(0,0,0,0.25);
+      --toggle-bg: rgba(255,255,255,0.2);
+      --toggle-hover: rgba(255,255,255,0.3);
+    }
+    body.dark-mode {
+      --bg-color: #121212;
+      --text-color: #f1f1f1;
+      --card-bg: rgba(30,30,30,0.8);
+      --card-text: #f1f1f1;
+      --accent: #7e57c2;
+      --shadow-color: rgba(0,0,0,0.5);
+      --toggle-bg: rgba(255,255,255,0.1);
+      --toggle-hover: rgba(255,255,255,0.2);
+    }
+
+    /* ================== BASE STYLES ================== */
+    * { margin:0; padding:0; box-sizing:border-box; font-family:"Poppins",sans-serif; }
+    body {
+      background: var(--bg-color);
+      color: var(--text-color);
+      overflow-x: hidden;
+      scroll-behavior: smooth;
+      transition: background 0.5s, color 0.5s;
+    }
+    header {
+      text-align: center;
+      padding: 3rem 1rem;
+      position: relative;
+      animation: fadeDown 1.5s ease;
+    }
+    header h1 {
+      font-size: 2.8rem;
+      color: var(--text-color);
+      animation: glow 2s infinite alternate;
+    }
+    header p {
+      margin-top: 1rem;
+      font-size: 1.2rem;
+      color: var(--accent);
+    }
+
+    /* ================== IMPROVED THEME TOGGLE ================== */
+    .theme-toggle {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      width: 60px;
+      height: 30px;
+      background: var(--toggle-bg);
+      border-radius: 50px;
+      padding: 5px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: all 0.3s ease;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+      backdrop-filter: blur(5px);
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+    
+    .theme-toggle:hover {
+      background: var(--toggle-hover);
+      transform: scale(1.05);
+    }
+    
+    .theme-toggle::before {
+      content: '';
+      position: absolute;
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: #fff;
+      transition: all 0.3s ease;
+      left: 4px;
+      z-index: 1;
+    }
+    
+    body.dark-mode .theme-toggle::before {
+      transform: translateX(30px);
+      background: #ffd43b;
+    }
+    
+    .theme-icon {
+      font-size: 14px;
+      z-index: 2;
+      transition: all 0.3s ease;
+    }
+    
+    .sun-icon {
+      color: #ffd43b;
+      opacity: 0;
+      transform: scale(0.5);
+    }
+    
+    .moon-icon {
+      color: #fff;
+      opacity: 1;
+      transform: scale(1);
+    }
+    
+    body.dark-mode .sun-icon {
+      opacity: 1;
+      transform: scale(1);
+    }
+    
+    body.dark-mode .moon-icon {
+      opacity: 0;
+      transform: scale(0.5);
+    }
+
+    /* ================== HERO ================== */
+    .hero {
+      display:flex; justify-content:center; align-items:center;
+      flex-direction:column; padding:2rem;
+    }
+    .hero img {
+      width:350px; max-width:85%;
+      animation: float 3s ease-in-out infinite;
+    }
+    .hero h2 {
+      margin-top:1.5rem;
+      font-size:2rem;
+      color: var(--text-color);
+      animation: fadeUp 1.8s ease;
+    }
+
+    /* ================== DESCRIPTION ================== */
+    .description {
+      max-width:950px;
+      margin:3rem auto;
+      padding:2rem;
+      background: var(--card-bg);
+      border-radius:1.5rem;
+      box-shadow: 0px 8px 20px var(--shadow-color);
+      animation: scaleUp 1.2s ease;
+      backdrop-filter: blur(8px);
+      transition: background 0.5s, color 0.5s, box-shadow 0.5s;
+    }
+    .description h3 { font-size:2rem; margin-bottom:1rem; color: var(--text-color); }
+    .description p { font-size:1.15rem; line-height:1.8; color: var(--accent); animation: fadeInText 2s ease; }
+
+    /* ================== FEATURES ================== */
+    .features {
+      display:grid;
+      grid-template-columns:repeat(auto-fit, minmax(250px, 1fr));
+      gap:1.5rem;
+      max-width:1100px;
+      margin:3rem auto;
+      padding:2rem;
+    }
+    .feature-card {
+      background: var(--card-bg);
+      border-radius:1.2rem;
+      padding:2rem;
+      box-shadow:0px 6px 15px var(--shadow-color);
+      text-align:center;
+      transition: transform 0.4s ease, box-shadow 0.4s ease, background 0.5s, color 0.5s;
+      opacity:0;
+      animation: slideIn 1.5s forwards;
+      backdrop-filter: blur(8px);
+      color: var(--card-text);
+    }
+    .feature-card:hover {
+      transform: translateY(-12px) scale(1.07);
+      box-shadow:0px 12px 25px var(--shadow-color);
+    }
+    .feature-card img { width:120px; margin-bottom:1rem; animation: bounce 2.5s infinite; }
+    .feature-card h4 { margin-bottom:0.5rem; font-size:1.3rem; color: var(--text-color); }
+    .feature-card p { color: var(--accent); font-size:1rem; }
+
+    /* ================== FOOTER ================== */
+    footer {
+      text-align:center;
+      padding:2rem;
+      background: rgba(0,0,0,0.3);
+      color: var(--text-color);
+      margin-top:3rem;
+      animation: fadeUp 2s ease;
+      border-top:1px solid rgba(255,255,255,0.2);
+      transition: background 0.5s, color 0.5s;
+    }
+
+    /* ================== ANIMATIONS ================== */
+    @keyframes float {0%,100%{transform:translateY(0);}50%{transform:translateY(-20px);}}
+    @keyframes fadeDown {from{opacity:0;transform:translateY(-30px);}to{opacity:1;transform:translateY(0);}}
+    @keyframes fadeUp {from{opacity:0;transform:translateY(30px);}to{opacity:1;transform:translateY(0);}}
+    @keyframes scaleUp {from{opacity:0;transform:scale(0.9);}to{opacity:1;transform:scale(1);}}
+    @keyframes fadeInText {from{opacity:0;letter-spacing:2px;}to{opacity:1;letter-spacing:normal;}}
+    @keyframes slideIn {from{opacity:0;transform:translateY(50px);}to{opacity:1;transform:translateY(0);}}
+    @keyframes bounce {0%,100%{transform:translateY(0);}50%{transform:translateY(-12px);}}
+    @keyframes glow {from{text-shadow:0 0 5px #66a6ff,0 0 10px #89f7fe;}to{text-shadow:0 0 20px #66a6ff,0 0 35px #89f7fe;}}
+
+    /* ================== RESPONSIVE ================== */
+    @media(max-width:768px){
+      .hero img{width:250px;}
+      .description{padding:1.5rem;}
+      .features{padding:1rem;}
+      .theme-toggle {
+        top: 15px;
+        right: 15px;
+        width: 50px;
+        height: 26px;
+      }
+      body.dark-mode .theme-toggle::before {
+        transform: translateX(24px);
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>My E-Commerce Platform</h1>
+    <p>Built with React.js and MongoDB for speed, scalability, and seamless shopping experiences.</p>
+    <div class="theme-toggle" id="themeToggle">
+      <span class="theme-icon sun-icon">☀️</span>
+      <span class="theme-icon moon-icon">🌙</span>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <img src="e-commerce.png" alt="E-commerce animation">
+    <h2>Smart, Scalable & Stylish</h2>
+  </section>
+
+  <!-- About Description -->
+  <section class="description">
+    <h3>About the Platform</h3>
+    <p>
+      This e-commerce platform is a <b>React.js front-end</b> powered by a <b>MongoDB backend</b>, 
+      ensuring a modern, scalable, and high-performance shopping experience.  
+      The frontend leverages <b>React hooks, reusable components, and state management</b> for a smooth UI,  
+      while MongoDB provides <b>fast, schema-flexible data storage</b> for products, users, and orders.  
+      With secure APIs, real-time updates, and responsive layouts, the platform is built to grow with businesses of all sizes.
+    </p>
+  </section>
+
+  <!-- Features Section -->
+  <section class="features">
+    <div class="feature-card">
+      <img src="cart.png" alt="Cart Animation">
+      <h4>Shopping Cart</h4>
+      <p>React state management for instant updates, MongoDB persistence across devices, seamless checkout experience.</p>
+    </div>
+    <div class="feature-card">
+      <img src="filter.png" alt="Filter Animation">
+      <h4>Smart Filtering</h4>
+      <p>MongoDB aggregation + React dynamic filters enable lightning-fast product search and category browsing.</p>
+    </div>
+    <div class="feature-card">
+      <img src="desgin.png" alt="Responsive Design Animation">
+      <h4>Responsive Design</h4>
+      <p>React components adapt fluidly across desktop, tablet, and mobile devices for a consistent UX.</p>
+    </div>
+    <div class="feature-card">
+      <img src="payment.png" alt="Secure Payment Animation">
+      <h4>Secure Payments</h4>
+      <p>Integrated with payment APIs, backed by encrypted MongoDB data storage and JWT authentication.</p>
+    </div>
+  </section>
+
+  <footer>
+    <p>© 2025 My Portfolio | React + MongoDB E-Commerce Showcase</p>
+  </footer>
+
+  <!-- ================== SCRIPTS ================== -->
+  <script>
+    // Dark/Light Toggle
+    const toggle = document.getElementById('themeToggle');
+    toggle.addEventListener('click', () => {
+      document.body.classList.toggle('dark-mode');
+    });
+
+    // Scroll Reveal for Feature Cards
+    const cards = document.querySelectorAll('.feature-card');
+    window.addEventListener('scroll', () => {
+      const triggerBottom = window.innerHeight * 0.85;
+      cards.forEach(card => {
+        const cardTop = card.getBoundingClientRect().top;
+        if (cardTop < triggerBottom) {
+          card.style.opacity = '1';
+        }
+      });
+    });
+  </script>
+
+</body>
+</html>

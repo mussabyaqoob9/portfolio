@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SaaS Analytics Platform | Portfolio</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Base Styles & Variables */
+        :root {
+            --primary: #4361ee;
+            --secondary: #3a0ca3;
+            --accent: #4cc9f0;
+            --text: #212529;
+            --background: #f8f9fa;
+            --card-bg: #ffffff;
+            --header-bg: rgba(255, 255, 255, 0.95);
+            --shadow: rgba(0, 0, 0, 0.1);
+            --gradient-start: #f5f7fa;
+            --gradient-end: #c3cfe2;
+            --filter: none;
+            --transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        [data-theme="dark"] {
+            --primary: #5e72e4;
+            --secondary: #7e6cde;
+            --accent: #4cc9f0;
+            --text: #f8f9fa;
+            --background: #121212;
+            --card-bg: #1e1e1e;
+            --header-bg: rgba(30, 30, 30, 0.95);
+            --shadow: rgba(0, 0, 0, 0.3);
+            --gradient-start: #0f0c29;
+            --gradient-end: #302b63;
+            --filter: invert(1) hue-rotate(180deg);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        body {
+            background: linear-gradient(135deg, var(--gradient-start) 0%, var(--gradient-end) 100%);
+            color: var(--text);
+            line-height: 1.6;
+            overflow-x: hidden;
+            padding-bottom: 2rem;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        /* Theme Toggle */
+        .theme-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            background: var(--card-bg);
+            border: 2px solid var(--primary);
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 4px 15px var(--shadow);
+            transition: var(--transition);
+        }
+
+        .theme-toggle:hover {
+            transform: rotate(30deg);
+            background: var(--primary);
+            color: white;
+        }
+
+        /* Header & Navigation */
+        header {
+            background: var(--header-bg);
+            box-shadow: 0 5px 20px var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            animation: slideDown 0.7s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        @keyframes slideDown {
+            from { transform: translateY(-100%); }
+            to { transform: translateY(0); }
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.2rem 0;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+        }
+
+        .logo i {
+            margin-right: 0.5rem;
+            color: var(--accent);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-links li {
+            margin-left: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text);
+            font-weight: 500;
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 3px;
+            background: var(--accent);
+            transition: var(--transition);
+            border-radius: 3px;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 5rem 0;
+            text-align: center;
+            animation: fadeIn 1s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(45deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            animation: gradientMove 5s infinite alternate;
+        }
+
+        @keyframes gradientMove {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 100% 50%; }
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            max-width: 800px;
+            margin: 0 auto 2rem;
+            color: var(--text);
+        }
+
+        .tech-stack {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .tech-item {
+            background: var(--card-bg);
+            padding: 0.8rem 1.5rem;
+            border-radius: 50px;
+            display: flex;
+            align-items: center;
+            box-shadow: 0 5px 15px var(--shadow);
+            transition: var(--transition);
+            animation: bounceIn 1s ease;
+        }
+
+        @keyframes bounceIn {
+            0% { transform: scale(0); opacity: 0; }
+            60% { transform: scale(1.1); }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        .tech-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px var(--shadow);
+        }
+
+        .tech-item i {
+            font-size: 1.5rem;
+            margin-right: 0.7rem;
+        }
+
+        .tech-item.react { color: #61dafb; }
+        .tech-item.python { color: #306998; }
+        .tech-item.postgres { color: #336791; }
+
+        /* Project Description */
+        .description {
+            background: var(--card-bg);
+            border-radius: 15px;
+            padding: 3rem;
+            margin: 3rem auto;
+            box-shadow: 0 10px 30px var(--shadow);
+            animation: slideUp 1s ease;
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(50px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .description h2 {
+            font-size: 2.2rem;
+            margin-bottom: 2rem;
+            color: var(--primary);
+            position: relative;
+            display: inline-block;
+        }
+
+        .description h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 60px;
+            height: 4px;
+            background: var(--accent);
+            border-radius: 2px;
+        }
+
+        .description p {
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .feature-card {
+            background: var(--background);
+            padding: 1.5rem;
+            border-radius: 10px;
+            transition: var(--transition);
+            border-left: 4px solid var(--primary);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px var(--shadow);
+        }
+
+        .feature-card h3 {
+            color: var(--secondary);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .feature-card h3 i {
+            margin-right: 0.7rem;
+            color: var(--accent);
+        }
+
+        /* Project Images Section */
+        .project-images {
+            margin: 4rem auto;
+            animation: fadeIn 1.5s ease;
+        }
+
+        .project-images h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 2.5rem;
+            color: var(--secondary);
+        }
+
+        .image-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .gallery-item {
+            position: relative;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px var(--shadow);
+            transition: var(--transition);
+            height: 250px;
+            cursor: pointer;
+        }
+
+        .gallery-item:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 15px 30px var(--shadow);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+            filter: var(--filter);
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+
+        .gallery-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+            padding: 1.5rem;
+            color: white;
+            opacity: 0;
+            transition: var(--transition);
+            transform: translateY(20px);
+        }
+
+        .gallery-item:hover .gallery-overlay {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 2rem 0;
+            margin-top: 3rem;
+            color: var(--text);
+            animation: fadeIn 2s ease;
+        }
+
+        footer a {
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .nav-container {
+                flex-direction: column;
+            }
+            
+            .nav-links {
+                margin-top: 1.5rem;
+            }
+            
+            .nav-links li {
+                margin: 0 1rem;
+            }
+            
+            .description {
+                padding: 2rem;
+            }
+            
+            .tech-stack {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+
+        /* Animations for elements on scroll */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 1s ease;
+        }
+        
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <div class="theme-toggle" id="themeToggle">
+        <i class="fas fa-moon"></i>
+    </div>
+
+    <header>
+        <div class="container nav-container">
+            <div class="logo">
+                <i class="fas fa-chart-line"></i>
+                <span>DataViz</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="#overview">Overview</a></li>
+                <li><a href="#features">Features</a></li>
+                <li><a href="#gallery">Gallery</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <h1>SaaS Analytics Platform</h1>
+            <p>A multi-tenant SaaS platform for data analytics with custom dashboards and reporting capabilities.</p>
+            
+            <div class="tech-stack">
+                <div class="tech-item react">
+                    <i class="fab fa-react"></i>
+                    <span>React</span>
+                </div>
+                <div class="tech-item python">
+                    <i class="fab fa-python"></i>
+                    <span>Python</span>
+                </div>
+                <div class="tech-item postgres">
+                    <i class="fas fa-database"></i>
+                    <span>PostgreSQL</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="overview" class="description">
+        <div class="container">
+            <h2>Project Overview</h2>
+            <p>This SaaS Analytics Platform is a comprehensive data visualization and business intelligence solution designed for companies of all sizes. The platform enables organizations to transform raw data into actionable insights through intuitive dashboards and detailed reports.</p>
+            <p>Built with a modern tech stack, the application features a responsive React frontend, a powerful Python backend, and a scalable PostgreSQL database capable of handling large datasets with complex relationships.</p>
+            
+            <h2>Technical Implementation</h2>
+            <div class="features">
+                <div class="feature-card reveal">
+                    <h3><i class="fab fa-react"></i> React Frontend</h3>
+                    <p>The user interface is built with React, utilizing hooks for state management and styled-components for a consistent design system. The dashboard features dynamic visualizations using D3.js and Chart.js for interactive data representations.</p>
+                </div>
+                <div class="feature-card reveal">
+                    <h3><i class="fab fa-python"></i> Python Backend</h3>
+                    <p>The backend is developed with Python using the Django REST framework, providing a robust API for the frontend. It includes advanced data processing capabilities, authentication middleware, and efficient query optimization.</p>
+                </div>
+                <div class="feature-card reveal">
+                    <h3><i class="fas fa-database"></i> PostgreSQL Database</h3>
+                    <p>The database is designed with multi-tenancy in mind, using schema-based isolation for each client. It includes optimized queries, materialized views for frequently accessed data, and advanced indexing strategies.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="features" class="description">
+        <div class="container">
+            <h2>Key Features</h2>
+            <div class="features">
+                <div class="feature-card reveal">
+                    <h3><i class="fas fa-tachometer-alt"></i> Custom Dashboards</h3>
+                    <p>Users can create personalized dashboards with drag-and-drop widgets, choosing from various visualization types including charts, graphs, and data tables.</p>
+                </div>
+                <div class="feature-card reveal">
+                    <h3><i class="fas fa-users"></i> Multi-Tenant Architecture</h3>
+                    <p>The platform securely isolates each client's data while maintaining a single application instance, reducing overhead and simplifying maintenance.</p>
+                </div>
+                <div class="feature-card reveal">
+                    <h3><i class="fas fa-bolt"></i> Real-Time Analytics</h3>
+                    <p>Leveraging WebSockets and efficient database queries, the platform provides real-time data updates and live notifications for important metrics.</p>
+                </div>
+                <div class="feature-card reveal">
+                    <h3><i class="fas fa-shield-alt"></i> Advanced Security</h3>
+                    <p>Implementation of OAuth 2.0, role-based access control, and data encryption ensures that sensitive business data remains protected at all times.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="gallery" class="project-images">
+        <div class="container">
+            <h2>Project Gallery</h2>
+            <div class="image-gallery">
+                <div class="gallery-item reveal">
+                    <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Dashboard View">
+                    <div class="gallery-overlay">
+                        <h3>Main Dashboard</h3>
+                        <p>Overview of key metrics and performance indicators</p>
+                    </div>
+                </div>
+                <div class="gallery-item reveal">
+                    <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Data Visualization">
+                    <div class="gallery-overlay">
+                        <h3>Data Visualization</h3>
+                        <p>Interactive charts and graphs for data analysis</p>
+                    </div>
+                </div>
+                <div class="gallery-item reveal">
+                    <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Reporting">
+                    <div class="gallery-overlay">
+                        <h3>Reporting Interface</h3>
+                        <p>Custom report generation with filtering options</p>
+                    </div>
+                </div>
+                <div class="gallery-item reveal">
+                    <img src="https://images.unsplash.com/photo-1568992687947-868a62a9f521?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Mobile View">
+                    <div class="gallery-overlay">
+                        <h3>Mobile Responsive</h3>
+                        <p>Fully responsive design for all device sizes</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer id="contact">
+        <div class="container">
+            <p>Interested in this project? <a href="mailto:contact@example.com">Contact me</a> for more information</p>
+            <p>© 2023 SaaS Analytics Platform. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Theme toggle functionality
+        const themeToggle = document.getElementById('themeToggle');
+        const themeIcon = themeToggle.querySelector('i');
+        const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');
+        
+        // Check for saved theme preference or use system preference
+        const currentTheme = localStorage.getItem('theme') || 
+                            (prefersDarkScheme.matches ? 'dark' : 'light');
+        
+        // Set initial theme
+        if (currentTheme === 'dark') {
+            document.body.setAttribute('data-theme', 'dark');
+            themeIcon.classList.remove('fa-moon');
+            themeIcon.classList.add('fa-sun');
+        }
+        
+        // Toggle theme on button click
+        themeToggle.addEventListener('click', () => {
+            let theme = 'light';
+            if (!document.body.getAttribute('data-theme') || 
+                document.body.getAttribute('data-theme') === 'light') {
+                theme = 'dark';
+                document.body.setAttribute('data-theme', 'dark');
+                themeIcon.classList.remove('fa-moon');
+                themeIcon.classList.add('fa-sun');
+            } else {
+                document.body.removeAttribute('data-theme');
+                themeIcon.classList.remove('fa-sun');
+                themeIcon.classList.add('fa-moon');
+            }
+            localStorage.setItem('theme', theme);
+        });
+        
+        // Animation on scroll
+        function reveal() {
+            const reveals = document.querySelectorAll(".reveal");
+            
+            for (let i = 0; i < reveals.length; i++) {
+                const windowHeight = window.innerHeight;
+                const elementTop = reveals[i].getBoundingClientRect().top;
+                const elementVisible = 150;
+                
+                if (elementTop < windowHeight - elementVisible) {
+                    reveals[i].classList.add("active");
+                }
+            }
+        }
+        
+        window.addEventListener("scroll", reveal);
+        // Initialize on load
+        reveal();
+    </script>
+</body>
+</html>
