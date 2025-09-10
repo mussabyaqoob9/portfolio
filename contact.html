@@ -1,192 +1,261 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contact - MUSSAB YAQOOB| Software Developer</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contact - MUSSAB YAQOOB | Software Developer</title>
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+  />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet"
+  />
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-    <!-- Header -->
-    <header id="header" class="scrolled">
-        <div class="container header-container">
-            <a href="index.html" class="logo">MUSSAB<span>YAQOOB</span></a>
-            <div class="menu-toggle">
-                <i class="fas fa-bars"></i>
+  <!-- Header -->
+  <header id="header" class="scrolled">
+    <div class="container header-container">
+      <a href="index.html" class="logo">MUSSAB<span>YAQOOB</span></a>
+      <div class="menu-toggle">
+        <i class="fas fa-bars"></i>
+      </div>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="services.html">Services</a></li>
+        <li><a href="portfolio.html">Portfolio</a></li>
+        <li><a href="contact.html" class="active">Contact</a></li>
+      </ul>
+    </div>
+  </header>
+
+  <!-- Contact Section -->
+  <section class="section page-section" id="contact">
+    <div class="container">
+      <div class="section-title">
+        <h2>Get In Touch</h2>
+        <p>
+          Have a project in mind or want to discuss potential opportunities? I'd
+          love to hear from you and explore how we can work together.
+        </p>
+      </div>
+      <div class="contact-container">
+        <!-- Left info -->
+        <div class="contact-info">
+          <div class="contact-intro">
+            <h3>Let's Start a Conversation</h3>
+            <p>
+              I'm always excited to take on new challenges and help bring
+              innovative ideas to life. Whether you're a startup looking to
+              build your first product or an established company seeking to
+              modernize your tech stack, I'm here to help.
+            </p>
+          </div>
+
+          <div class="contact-card">
+            <div class="contact-icon"><i class="fas fa-map-marker-alt"></i></div>
+            <div class="contact-text">
+              <h3>Location</h3>
+              <p>Shahdara Lahore, Pakistan</p>
+              <p>Available for remote work worldwide</p>
             </div>
-            <ul class="nav-links">
-                <li><a href="index.html">Home</a></li>
-                <li><a href="about.html">About</a></li>
-                <li><a href="services.html">Services</a></li>
-                <li><a href="portfolio.html">Portfolio</a></li>
-                <li><a href="contact.html" class="active">Contact</a></li>
-            </ul>
+          </div>
+          <div class="contact-card">
+            <div class="contact-icon"><i class="fas fa-envelope"></i></div>
+            <div class="contact-text">
+              <h3>Email</h3>
+              <p>mussabyaqoob9@email.com</p>
+              <p>Response within 24 hours</p>
+            </div>
+          </div>
+          <div class="contact-card">
+            <div class="contact-icon"><i class="fas fa-phone-alt"></i></div>
+            <div class="contact-text">
+              <h3>Phone</h3>
+              <p>+92 (319) 715-1553</p>
+              <p>Available Mon-Fri, 9AM-6PM PST</p>
+            </div>
+          </div>
+          <div class="contact-card">
+            <div class="contact-icon"><i class="fab fa-linkedin"></i></div>
+            <div class="contact-text">
+              <h3>LinkedIn</h3>
+              <p>Connect with me professionally</p>
+              <a
+                href="https://www.linkedin.com/in/mussab-yaqoob-580186377?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app"
+                class="contact-link"
+                >View Profile</a
+              >
+            </div>
+          </div>
+
+          <div class="availability">
+            <h4><i class="fas fa-calendar-check"></i> Current Availability</h4>
+            <p>
+              I'm currently accepting new projects starting in
+              <strong>March 2024</strong>. For urgent requirements, please
+              mention it in your message.
+            </p>
+          </div>
         </div>
-    </header>
 
-    <!-- Contact Section -->
-    <section class="section page-section" id="contact">
-        <div class="container">
-            <div class="section-title">
-                <h2>Get In Touch</h2>
-                <p>Have a project in mind or want to discuss potential opportunities? I'd love to hear from you and explore how we can work together.</p>
+        <!-- Right form -->
+        <div class="contact-form">
+          <h3>Send Me a Message</h3>
+          <form id="contactForm">
+            <div class="form-row">
+              <div class="form-group">
+                <label for="name">Full Name *</label>
+                <input
+                  type="text"
+                  id="name"
+                  name="name"
+                  class="form-control"
+                  placeholder="Your Full Name"
+                  required
+                />
+              </div>
+              <div class="form-group">
+                <label for="email">Email Address *</label>
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  class="form-control"
+                  placeholder="your.email@example.com"
+                  required
+                />
+              </div>
             </div>
-            <div class="contact-container">
-                <div class="contact-info">
-                    <div class="contact-intro">
-                        <h3>Let's Start a Conversation</h3>
-                        <p>I'm always excited to take on new challenges and help bring innovative ideas to life. Whether you're a startup looking to build your first product or an established company seeking to modernize your tech stack, I'm here to help.</p>
-                    </div>
-                    
-                    <div class="contact-card">
-                        <div class="contact-icon">
-                            <i class="fas fa-map-marker-alt"></i>
-                        </div>
-                        <div class="contact-text">
-                            <h3>Location</h3>
-                            <p>Shahdara Lahore, Pakistan</p>
-                            <p>Available for remote work worldwide</p>
-                        </div>
-                    </div>
-                    <div class="contact-card">
-                        <div class="contact-icon">
-                            <i class="fas fa-envelope"></i>
-                        </div>
-                        <div class="contact-text">
-                            <h3>Email</h3>
-                            <p>mussabyaqoob9@email.com</p>
-                            <p>Response within 24 hours</p>
-                        </div>
-                    </div>
-                    <div class="contact-card">
-                        <div class="contact-icon">
-                            <i class="fas fa-phone-alt"></i>
-                        </div>
-                        <div class="contact-text">
-                            <h3>Phone</h3>
-                            <p>+92 (319) 715-1553</p>
-                            <p>Available Mon-Fri, 9AM-6PM PST</p>
-                        </div>
-                    </div>
-                    <div class="contact-card">
-                        <div class="contact-icon">
-                            <i class="fab fa-linkedin"></i>
-                        </div>
-                        <div class="contact-text">
-                            <h3>LinkedIn</h3>
-                            <p>Connect with me professionally</p>
-                            <a href="https://www.linkedin.com/in/mussab-yaqoob-580186377?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" class="contact-link">View Profile</a>
-                        </div>
-                    </div>
-
-                    <div class="availability">
-                        <h4><i class="fas fa-calendar-check"></i> Current Availability</h4>
-                        <p>I'm currently accepting new projects starting in <strong>March 2024</strong>. For urgent requirements, please mention it in your message.</p>
-                    </div>
-                </div>
-                
-                <div class="contact-form">
-                    <h3>Send Me a Message</h3>
-                    <form id="contactForm">
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label for="name">Full Name *</label>
-                                <input type="text" id="name" name="name" class="form-control" placeholder="Your Full Name" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="email">Email Address *</label>
-                                <input type="email" id="email" name="email" class="form-control" placeholder="your.email@example.com" required>
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label for="company">Company</label>
-                                <input type="text" id="company" name="company" class="form-control" placeholder="Your Company (Optional)">
-                            </div>
-                            <div class="form-group">
-                                <label for="phone">Phone Number</label>
-                                <input type="tel" id="phone" name="phone" class="form-control" placeholder="+1 (555) 123-4567">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="subject">Subject *</label>
-                            <select id="subject" name="subject" class="form-control" required>
-                                <option value="">Select a subject</option>
-                                <option value="web-development">Web Development</option>
-                                <option value="mobile-development">Mobile Development</option>
-                                <option value="backend-development">Backend Development</option>
-                                <option value="ui-ux-design">UI/UX Design</option>
-                                <option value="consultation">Technical Consultation</option>
-                                <option value="other">Other</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="budget">Project Budget</label>
-                            <select id="budget" name="budget" class="form-control">
-                                <option value="">Select budget range</option>
-                                <option value="under-5k">Under $5,000</option>
-                                <option value="5k-10k">$5,000 - $10,000</option>
-                                <option value="10k-25k">$10,000 - $25,000</option>
-                                <option value="25k-50k">$25,000 - $50,000</option>
-                                <option value="50k-plus">$50,000+</option>
-                                <option value="discuss">Let's discuss</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="timeline">Project Timeline</label>
-                            <select id="timeline" name="timeline" class="form-control">
-                                <option value="">Select timeline</option>
-                                <option value="asap">ASAP</option>
-                                <option value="1-month">Within 1 month</option>
-                                <option value="2-3-months">2-3 months</option>
-                                <option value="3-6-months">3-6 months</option>
-                                <option value="6-months-plus">6+ months</option>
-                                <option value="flexible">Flexible</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="message">Project Details *</label>
-                            <textarea id="message" name="message" class="form-control" placeholder="Tell me about your project, goals, and any specific requirements..." required></textarea>
-                        </div>
-                        <div class="form-group checkbox-group">
-                            <label class="checkbox-label">
-                                <input type="checkbox" id="updates" name="updates">
-                                <span class="checkbox-custom"></span>
-                                I'd like to receive updates about your services and industry insights
-                            </label>
-                        </div>
-                        <button type="submit" class="btn btn-primary">
-                            <i class="fas fa-paper-plane"></i>
-                            Send Message
-                        </button>
-                    </form>
-                </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="company">Company</label>
+                <input
+                  type="text"
+                  id="company"
+                  name="company"
+                  class="form-control"
+                  placeholder="Your Company (Optional)"
+                />
+              </div>
+              <div class="form-group">
+                <label for="phone">Phone Number</label>
+                <input
+                  type="tel"
+                  id="phone"
+                  name="phone"
+                  class="form-control"
+                  placeholder="+1 (555) 123-4567"
+                />
+              </div>
             </div>
-
-           
+            <div class="form-group">
+              <label for="subject">Subject *</label>
+              <select id="subject" name="subject" class="form-control" required>
+                <option value="">Select a subject</option>
+                <option value="web-development">Web Development</option>
+                <option value="mobile-development">Mobile Development</option>
+                <option value="backend-development">Backend Development</option>
+                <option value="ui-ux-design">UI/UX Design</option>
+                <option value="consultation">Technical Consultation</option>
+                <option value="other">Other</option>
+              </select>
             </div>
+            <div class="form-group">
+              <label for="budget">Project Budget</label>
+              <select id="budget" name="budget" class="form-control">
+                <option value="">Select budget range</option>
+                <option value="under-500">Under $500</option>
+                <option value="500-800">$500 - $800</option>
+                <option value="800-1000">$800 - $1000</option>
+                <option value="1000-2000">$1000 - $2000</option>
+                <option value="2500-plus">$2500+</option>
+                <option value="discuss">Let's discuss</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="timeline">Project Timeline</label>
+              <select id="timeline" name="timeline" class="form-control">
+                <option value="">Select timeline</option>
+                <option value="asap">ASAP</option>
+                <option value="3-4-days">Within 3-4 days</option>
+                <option value="1-week">1 week</option>
+                <option value="1-1.5-week">1-1.5 week</option>
+                <option value="2-weeks-plus">2+ weeks</option>
+                <option value="flexible">Flexible</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="message">Project Details *</label>
+              <textarea
+                id="message"
+                name="message"
+                class="form-control"
+                placeholder="Tell me about your project..."
+                required
+              ></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">
+              <i class="fas fa-paper-plane"></i>
+              Send Message
+            </button>
+          </form>
         </div>
-    </section>
+      </div>
+    </div>
+  </section>
 
-    <!-- Footer -->
-    <footer>
-        <div class="container">
-            <div class="footer-logo">MUSSAB<span>YAQOOB</span></div>
-          
-            <div class="social-links">
-                <a href="https://github.com/mussabyaqoob9"><i class="fab fa-github"></i></a>
-                <a href="https://www.linkedin.com/in/mussab-yaqoob-580186377?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app"><i class="fab fa-linkedin-in"></i></a>
-                <a href="https://wa.me/message/HSRAATHOY5F4M1"><i class="fab fa-whatsapp"></i></a>
-                <a href="https://www.instagram.com/mussabyaqoob9?igsh=MWZ2M29oMTZjNDJvOQ=="><i class="fab fa-instagram"></i></a>
-                <a href="https://www.facebook.com/share/16h4mNiaEC/"><i class="fab fa-facebook-f"></i></a>
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="footer-logo">MUSSAB<span>YAQOOB</span></div>
+      <div class="social-links">
+        <a href="https://github.com/mussabyaqoob9"><i class="fab fa-github"></i></a>
+        <a href="https://www.linkedin.com/in/mussab-yaqoob-580186377"><i class="fab fa-linkedin-in"></i></a>
+        <a href="https://wa.me/message/HSRAATHOY5F4M1"><i class="fab fa-whatsapp"></i></a>
+        <a href="https://www.instagram.com/mussabyaqoob9"><i class="fab fa-instagram"></i></a>
+        <a href="https://www.facebook.com/share/16h4mNiaEC/"><i class="fab fa-facebook-f"></i></a>
+      </div>
+      <p class="copyright">&copy; 2023. All rights reserved.</p>
+    </div>
+  </footer>
 
-            </div>
-            <p class="copyright">&copy; 2023. All rights reserved.</p>
-        </div>
-    </footer>
+  <!-- EmailJS SDK -->
+  <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
+  <script>
+    (function () {
+      emailjs.init("6_1Zey6b07TZ6pbae"); // 🔑 Replace with your EmailJS Public Key
+    })();
 
-    <script src="script.js"></script>
+    // Handle form submit
+    document.getElementById("contactForm").addEventListener("submit", function (e) {
+      e.preventDefault();
+
+      const btn = this.querySelector("button[type='submit']");
+      const originalText = btn.innerHTML;
+      btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
+      btn.disabled = true;
+
+      emailjs
+        .sendForm("service_d482h8l", "template_y4bxj2p", this)
+        .then(() => {
+          alert("✅ Your message has been sent successfully!");
+          this.reset();
+        })
+        .catch((err) => {
+          console.error(err);
+          alert("❌ Failed to send message. Please try again later.");
+        })
+        .finally(() => {
+          btn.innerHTML = originalText;
+          btn.disabled = false;
+        });
+    });
+  </script>
+
+  <script src="script.js"></script>
 </body>
 </html>
